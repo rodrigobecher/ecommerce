@@ -9,8 +9,8 @@ public class ConfiguracaoMVC extends WebMvcConfigurerAdapter{
 
 		@Override
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
-			registry.addResourceHandler("/imagens/*.jpg").addResourceLocations("file:///Users/bruli/Pictures/imagens/");
-			registry.addResourceHandler("api/imagens/*.jpg").addResourceLocations("file:///Users/bruli/Pictures/imagens/");
+			registry.addResourceHandler("/imagens/*.jpg").addResourceLocations("file:///Users/Rodrigo/Pictures/imagens/");
+			registry.addResourceHandler("api/imagens/*.jpg").addResourceLocations("file:///Users/Rodrigo/Pictures/imagens/");
 		}
 		
 }
