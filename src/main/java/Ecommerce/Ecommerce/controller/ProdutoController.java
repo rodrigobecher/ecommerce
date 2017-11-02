@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,13 +44,13 @@ public class ProdutoController {
 	public String salvar(Produto produto, @RequestParam(name="codigo") int codigo , @RequestParam("foto") MultipartFile imagem) {
 		ModelAndView mv = new ModelAndView("manterProdutos");
 		if(!imagem.isEmpty()) {
-			String diretorio ="C:\\Users\\Rodrigo\\Pictures\\imagens\\";
+			String diretorio ="C:\\Users\\bruli\\Pictures\\imagens\\";
 			String nome = UUID.randomUUID().toString() + ".jpg";
 			Path caminho = Paths.get(diretorio + nome);
 			File file = new File(diretorio, nome);
 			try {
 				Files.write(caminho, imagem.getBytes());
-				File thumbnailDirectory = new File("C:\\Users\\Rodrigo\\Pictures\\imagens\\");
+				File thumbnailDirectory = new File("C:\\Users\\bruli\\Pictures\\imagens\\");
 				File thumbnail = new File(thumbnailDirectory, nome);
 				Thumbnails.of(file).size(600, 300).toFile(thumbnail);
 		}catch (IOException e) {
