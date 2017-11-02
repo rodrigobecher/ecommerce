@@ -1,0 +1,24 @@
+@charset "ISO-8859-1";
+th.alinhamento{
+position: relative;
+float: left;
+border: 2px solid  blue;
+margin: 2px 3px 5px 3px;
+}
+.align{
+
+	text-align: center;
+}
+
+.modal:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.modal > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 15px 20px;
+	background: #fff;
+}
