@@ -30,13 +30,16 @@
           <h4 class="modal-title">Detalhes do Produto</h4>
         </div>
         <div class="modal-body" >
-        	<div id="nome"> </div> 
+        <form method="post" id="form">			
+        	<input type="hidden" name="descricao" id="descricao">
+        	
+        	<div id="descricao1"> </div>
         	<div id="imagem" > </div>
-        	<input type="hidden" id="idProduto">
-       		
+        	<input type="hidden" name="idProduto" id="idProduto">
+       	</form>
         </div>
         <div class="modal-footer" >
-       	  <a href="#" onclick="adicionarCarrinho($('#idProduto').val())" class="btn btn-primary" data-dismiss="modal" > Adicionar no Carrinho </a>
+       	  <a href="#" onclick="adicionarCarrinho()" class="btn btn-primary" data-dismiss="modal" > Adicionar no Carrinho </a>
           <button type="button" onclick="limpaModal()" class="btn btn-default" data-dismiss="modal">Close</button>
           
         </div>
@@ -51,6 +54,7 @@
 				<label for="parametro">Pesquisa</label>
 				<input type="text" value="${param.parametro}" id="param" name="para"/>
 				<button type="submit" class="btn btn-primary">Pesquisar</button>
+				<input type="text" value="${carrinho}">
 				
 			</form>
 		</div>
@@ -60,7 +64,7 @@
 		<h1>Produtos</h1>
 		
 		<div class="row">
-			<c:forEach items="${produto}" var="imagem"  >
+			<c:forEach items="${imagem}" var="imagem"  >
   
   			<div class="col-sm-6 col-md-4">
    				 <div class="thumbnail">
@@ -73,10 +77,8 @@
 	     	 	
        				<p>${imagem.produto.descricao}</p>
 					<p>${imagem.produto.complemento}</p>
-					<c:forEach items="${restricao}" var="restricao" >
-						<c:if test="${imagem.produto.idProduto == restricao.produto.idProduto }">
-							<p>${restricao.descricaoRestricao }</p>
-						</c:if>
+					<c:forEach items="${imagem.produto.restricao1.lista}" var="produto" >
+							<p>${produto.descricaoRestricao }</p>
 					</c:forEach>
 					<p>${imagem.produto.precoVenda }</p>
        			    <p><a href="produto/excluir/${imagem.idImagem}/${imagem.produto.idProduto}/${imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a>

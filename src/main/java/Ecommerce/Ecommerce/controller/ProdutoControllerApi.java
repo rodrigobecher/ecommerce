@@ -3,6 +3,7 @@ package Ecommerce.Ecommerce.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,20 +37,31 @@ public class ProdutoControllerApi {
 	}
 	@GetMapping("/{id}")
 	public Imagem editar(@PathVariable Integer id){
+		
 		return repository.findbyId(id);
+		
+		
 	}
+	@SuppressWarnings("unchecked")
 	@PostMapping
-	public ModelAndView save(long codigo, Produto produto, BindingResult result){
-		ModelAndView mv = new ModelAndView("/carrinho");
+	public String save(Produto produto, BindingResult result, HttpServletRequest req){
+		//ModelAndView mv = new ModelAndView("listaProdutos");
+		
+		
+		ArrayList<Produto> retornoLista = (ArrayList<Produto>) req.getSession().getAttribute("carrinho");  
+		retornoLista = new AdicionarItensCarrinho().AdicionaItensCarrinho(produto, retornoLista); 
+		//HttpSession session = request.getSession(true);  
+		req.getSession().setAttribute("carrinho", retornoLista);
+		
+		
+		
 		//if(result.hasErrors()){
 		//	StringJoiner join = new StringJoiner(",");
 		//		join.add(erro.getDefaultMessage());
 		//	}
 		//	return ResponseEntity.badRequest().body("erro");
 		//}
-		repository.adicionaCarrinho(codigo);
-		List<Imagem> lista = repository.buscaCarrinhoProdutos();		
-		mv.addObject("produto", new ArrayList<Imagem>(lista));
-		return mv;
+		//mv.addObject("produto", new ArrayList<Imagem>(lista));
+		return "redirect:/produto";
 	}
 }

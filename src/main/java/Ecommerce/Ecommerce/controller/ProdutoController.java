@@ -33,11 +33,11 @@ public class ProdutoController {
 	@GetMapping
 	public ModelAndView Apresenta(Model modelo){
 		ModelAndView mv = new ModelAndView("/listaProdutos");
-		List<Imagem> list = repository.BuscaImgProduto();
-		//List<Imagem> list = repository.busca();
-		List<Restricao> rest = repository.buscaRestricaoProduto();
-		mv.addObject("restricao", new ArrayList<Restricao>(rest));
-		mv.addObject("produto", new ArrayList<Imagem>(list));
+		//List<Imagem> list = repository.BuscaImgProduto();
+		List<Imagem> list = repository.busca();
+		//List<Restricao> rest = repository.buscaRestricaoProduto();
+		//mv.addObject("restricao", new ArrayList<Restricao>(rest));
+		mv.addObject("imagem", new ArrayList<Imagem>(list));
 		return mv;
 	}
 	@PostMapping
@@ -79,7 +79,7 @@ public class ProdutoController {
 	}
 	@GetMapping("/{id}/{id}")
 	public ModelAndView editar(Restricao restricao, @PathVariable Integer id){
-		Imagem imagem = repository.findbyId(id);
+		Imagem imagem = repository.buscaIdProduto(id);
 		ModelAndView mv = new ModelAndView("/manterProdutos");	
 		List<Restricao> rest = repository.buscaRestricao();
 		//List<Restricao> restProduto = repository.buscaRestricaoProduto();

@@ -3,28 +3,31 @@ function editarAjax(id){
 			url: '/api/produto/' + id,
 			success: function(result){
 			
-			$("#nome").html(result.produto.descricao);
+			$("#descricao").val(result.produto.descricao);
+			$("#descricao1").html(result.produto.descricao);
 			$("#idProduto").val(result.produto.idProduto);
 			$("#imagem").append('<img width="250" height="136" src="imagens/'+ result.descricao +'">');
 			}
 		})
 	}
 
-function adicionarCarrinho(idProduto){
+function adicionarCarrinho(){
+	
 	$.ajax({
 		url : '/api/produto',
 		method: 'post',
-		data: {codigo:idProduto},
+		data: $("#form").serialize(), 
 		success: function(result){
 			$("#mensagem").html("Registro gravado");
 			limpaModal();
-			window.location.href = "/api/produto";
+		//	window.location.href = "/api/produto";
 		},
 		error: function(result){
 			$("#mensagem").html(result.responseText);
 		}
 	})
 }
+
 
 function CarregaCarrinho(){
 	$.ajax*{

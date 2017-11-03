@@ -1,9 +1,21 @@
 package Ecommerce.Ecommerce.model;
 
-public class Restricao {
+import java.util.List;
+
+	public class Restricao {
 	private int idRestricao;
 	private String descricaoRestricao;
 	private Produto produto;
+	private List<Restricao> lista;
+	
+	
+	
+	public List<Restricao> getLista() {
+		return lista;
+	}
+	public void setLista(List<Restricao> lista) {
+		this.lista = lista;
+	}
 	public Produto getProduto() {
 		return produto;
 	}

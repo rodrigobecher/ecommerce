@@ -1,7 +1,5 @@
 package Ecommerce.Ecommerce.model;
 
-import java.util.List;
-
 public class Produto {
 	private int idProduto;
 	private String descricao;
@@ -9,18 +7,14 @@ public class Produto {
 	private double precoVenda;
 	private int[] restricao;
 	private int quantidade;
-	private List<Restricao> lista;
+	private Restricao restricao1;
 	
 	
-	
-	public List<Restricao> getLista() {
-		return lista;
+	public Restricao getRestricao1() {
+		return restricao1;
 	}
-	public void setLista(List<Restricao> lista) {
-		this.lista = lista;
-	}
-	public int[] getRestricao() {
-		return restricao;
+	public void setRestricao1(Restricao restricao1) {
+		this.restricao1 = restricao1;
 	}
 	public int getIdProduto() {
 		return idProduto;
@@ -41,6 +35,9 @@ public class Produto {
 		this.complemento = complemento;
 	}
 	
+	public int[] getRestricao() {
+		return restricao;
+	}
 	public int getRestricao(int id) {
 		return restricao[id];
 	}
@@ -48,15 +45,17 @@ public class Produto {
 	public int[] getRestricaoTamanho() {
 		return restricao;
 	}
+	public void setRestricao(int[] restricao) {
+		this.restricao = restricao;
+	}
+	
 	public int getQuantidade() {
 		return quantidade;
 	}
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-	public void setRestricao(int[] restricao) {
-		this.restricao = restricao;
-	}
+	
 	public double getPrecoVenda() {
 		return precoVenda;
 	}

@@ -23,16 +23,11 @@
 				<textarea name="complemento"   id="complemento" rows="4" cols="50" class="form-control">${imagem.produto.complemento }</textarea>
 			</div>
 			<div class="form-group">
-				
-					<c:forEach items="${restricao}" var="restricao"  >
-						<div class="checkbox">
-							
-								<input name="restricao" type="checkbox" value="${restricao.idRestricao}">${restricao.descricaoRestricao}
-								
-						</div>
+					<c:forEach items="${restricao}" var="restricao"  >	
+						<div class="checkbox">		
+							<input name="restricao"  type="checkbox"value="${restricao.idRestricao}">${restricao.descricaoRestricao}	
+						</div>			
 					</c:forEach>
-				
-				
 			</div>
 			<div class="form-group">
 				<label for="quantidade">Quantidade</label>
