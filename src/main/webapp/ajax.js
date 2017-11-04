@@ -12,11 +12,11 @@ function editarAjax(id){
 	}
 
 function adicionarCarrinho(){
-	
+	var produtoId = $("#idProduto").val();
 	$.ajax({
-		url : '/api/produto',
-		method: 'post',
-		data: $("#form").serialize(), 
+		url : '/carrinho/' +produtoId,
+		//method: 'post',
+		//data: produtoId, 
 		success: function(result){
 			$("#mensagem").html("Registro gravado");
 			limpaModal();

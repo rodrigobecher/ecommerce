@@ -215,6 +215,7 @@ public class ProdutoRepository {
 		@Override
 		public Imagem mapRow(ResultSet rs, int rowNumber) throws SQLException{
 			Imagem img = new Imagem();
+			Restricao rest = new Restricao();
 			Produto produto = new Produto();
 			img.setIdImagem(rs.getInt("idImagem"));
 			img.setDescricao(rs.getString("descricao"));
@@ -223,6 +224,8 @@ public class ProdutoRepository {
 			produto.setIdProduto(rs.getInt("idProduto"));
 			produto.setComplemento(rs.getString("complemento"));
 			produto.setPrecoVenda(rs.getDouble("precoVenda"));
+			rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
+			produto.setRestricao1(rest);
 			img.setProduto(produto);
 			return img;
 		}

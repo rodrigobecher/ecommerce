@@ -19,7 +19,7 @@
 <body onclick="limpaModal()">
 
 <div class="container">
-
+	<a href="/carrinho" rel="nofollow">Seu Carrinho (${carrinhoCompras.quantidade})</a>
   <div class="modal fade" id="myModal" role="dialog" >
     <div class="modal-dialog" >
     
