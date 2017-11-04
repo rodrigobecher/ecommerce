@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import Ecommerce.Ecommerce.model.CarrinhoItem;
@@ -27,10 +28,14 @@ public class CarrinhoComprasController {
 	
 	@GetMapping("/{produtoId}")
 	public ModelAndView add(@PathVariable Integer produtoId) {
-	ModelAndView mv = new ModelAndView("redirect:/produto");
+	ModelAndView mv = new ModelAndView("redirect:/carrinho");
 	CarrinhoItem carrinhoItem = criaItem(produtoId);
 	carrinho.add(carrinhoItem);
 	return mv;
+	}
+	@RequestMapping(method=RequestMethod.GET)
+	public ModelAndView itens() {
+		return new ModelAndView("itens");
 	}
 
 	private CarrinhoItem criaItem(Integer produtoID) {

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
@@ -8,18 +8,34 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="estilos.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 </head>
 <title>Lista Produtos</title>
 </head>
 <body onclick="limpaModal()">
-
+<div class="jumbotron text-center">
+  <h1>Venda de Produtos</h1>
+  <p>Compre agora!</p> 
+</div>	
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/produto/cadastro"  class="btn btn-primary">Novo</a></li>
+      <li class="active"><a href="/carrinho" rel="nofollow">Seu Carrinho (${carrinhoCompras.quantidade})</a></li>
+    </ul>
+  </div>
+</nav>
+  
 <div class="container">
-	<a href="/carrinho" rel="nofollow">Seu Carrinho (${carrinhoCompras.quantidade})</a>
+  	
   <div class="modal fade" id="myModal" role="dialog" >
     <div class="modal-dialog" >
     
@@ -49,28 +65,20 @@
   </div>
   
 		
-		<div class="form-group">
-				<form action="/imovel/pesquisa">
-				<label for="parametro">Pesquisa</label>
-				<input type="text" value="${param.parametro}" id="param" name="para"/>
-				<button type="submit" class="btn btn-primary">Pesquisar</button>
-				<input type="text" value="${carrinho}">
-				
-			</form>
-		</div>
+		
 		<div class="form-horizontal">
-		<a href="/produto/cadastro"  class="btn btn-primary">Novo</a>
+		
 		</div>
 		<h1>Produtos</h1>
 		
 		<div class="row">
 			<c:forEach items="${imagem}" var="imagem"  >
-  
+   		
   			<div class="col-sm-6 col-md-4">
-   				 <div class="thumbnail">
+   				<div class="thumbnail">
    				 <a href="#" onclick="editarAjax(${imagem.idImagem})" data-toggle="modal" data-target="#myModal" title="Detalhes">
      				 <c:if test="${imagem.descricao != null }">
-						<img alt="imagem do Produto" src="imagens/${imagem.descricao }" class="img-responsive" width="304" height="236"/>
+     				 	 <img class="img-responsive" src="imagens/${imagem.descricao }" alt="imagem do Produto" width="300px" height="450px" > 	
 					</c:if>
 					</a>
 	     	 <div class="caption">
@@ -94,8 +102,11 @@
 					
 	</div>
 	
-
+<ul class="pager">
+  <li><a href="#">Previous</a></li>
+  <li><a href="#">Next</a></li>
+</ul>
 	<script src="ajax.js"></script>
-	
+
 </body>
 </html>

@@ -29,6 +29,26 @@ public class Imagem {
 	public void setRestricao(Restricao restricao) {
 		this.restricao = restricao;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idImagem;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Imagem other = (Imagem) obj;
+		if (idImagem != other.idImagem)
+			return false;
+		return true;
+	}
 	
 	
 }

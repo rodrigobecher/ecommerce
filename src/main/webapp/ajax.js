@@ -20,7 +20,7 @@ function adicionarCarrinho(){
 		success: function(result){
 			$("#mensagem").html("Registro gravado");
 			limpaModal();
-		//	window.location.href = "/api/produto";
+			window.location.href = "/carrinho";
 		},
 		error: function(result){
 			$("#mensagem").html(result.responseText);

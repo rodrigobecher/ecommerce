@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
 	
 		<form action="/produto"  method="post" enctype="multipart/form-data">
 			<div class="form-group">
-				<label for="descricao">Descrição</label>
+				<label for="descricao">DescriÃ§Ã£o</label>
 				<input type="text" value="${imagem.produto.descricao }"  name="descricao" id="descricao" class="form-control" required autofocus>
 			</div>
 			<div class="form-group">
@@ -34,7 +34,7 @@
 				<input type="number" value="${imagem.produto.quantidade }" name="quantidade" id ="quantidade" class="form-control"/> 
 			</div>
 			<div class="form-group">
-				<label for="precoVenda">Preço de Venda</label>
+				<label for="precoVenda">PreÃ§o de Venda</label>
 				<input type="number" value="${imagem.produto.precoVenda }" name="precoVenda" id ="precoVenda" class="form-control"/> 
 			</div>
 			<div class="form-group">

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
 				<label for="senha">senha</label>
 				<input type="password" name="senha" id="senha" class="form-control"/>
 				<c:if test="${usuario.login != null}">
-			    	<h4>Usuario ou senha inv·lidos</h4>
+			    	<h4>Usuario ou senha inv√°lidos</h4>
 			    </c:if>
  			</div>
 			<div class="form-group">	

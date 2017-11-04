@@ -1,5 +1,7 @@
 package Ecommerce.Ecommerce.model;
 
+import java.math.BigDecimal;
+
 public class CarrinhoItem {
 
 	private Imagem imagem;
@@ -45,6 +47,11 @@ public class CarrinhoItem {
 			return false;
 		
 		return true;
+	}
+
+	public double getTotal(int quantidade) {
+		return this.getImagem().getProduto().getPrecoVenda() * quantidade;
+		
 	}
 
 	

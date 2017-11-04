@@ -48,15 +48,17 @@ public class ProdutoController {
 			String nome = UUID.randomUUID().toString() + ".jpg";
 			Path caminho = Paths.get(diretorio + nome);
 			File file = new File(diretorio, nome);
+			file.canRead();
 			try {
 				Files.write(caminho, imagem.getBytes());
 				File thumbnailDirectory = new File("C:\\Users\\Rodrigo\\Pictures\\imagens\\");
-				File thumbnail = new File(thumbnailDirectory, nome);
-				Thumbnails.of(file).size(600, 300).toFile(thumbnail);
+				File thumbnail = new File(thumbnailDirectory, nome);			
+				Thumbnails.of(file).size(500, 200).toFile(thumbnail);
 		}catch (IOException e) {
 			//result.addError(new ObjectError("imagem", "Problema ao gravar imagem"));;
 			e.printStackTrace();
 		}
+		
 			Imagem img = new Imagem();
 			img.setIdImagem(codigo);
 			img.setDescricao(nome);
