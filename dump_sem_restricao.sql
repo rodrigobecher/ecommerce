@@ -103,24 +103,48 @@ insert into restricao(descricaoRestricao) values ('Sem Glutem');
 insert into restricao(descricaoRestricao) values ('Sem Lactose');
 insert into restricao(descricaoRestricao) values ('Sem Frutose');
 
+
+SELECT SQL_CALC_FOUND_ROWS * FROM pessoa LIMIT 0,10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 truncate produto
 truncate imagem
 select idRestricao, descricaoRestricao from restricao
 / insert into restricaoProduto (idRestricao, idProduto) values (3, 1)
-
+SELECT SQL_CALC_FOUND_ROWS * FROM pessoa LIMIT 0,10
 select produto.idProduto, produto.produtoDescricao, produto.complemento,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem
 inner join produto
 on produto.idProduto = imagem.idProduto
-
+limit 0,3;
+select found_rows()
 select * from produto
 
+SELECT SQL_CALC_FOUND_ROWS * FROM produto
+   LIMIT 3;
+SELECT FOUND_ROWS();
+select count(*)  from produto
 insert into produto (produtoDescricao, quantidade, complemento, precoVenda) values ('sei la', 12,' .', 20)
  */
  SET FOREIGN_KEY_CHECKS = 0;
 
-select produto.idProduto, produto.produtoDescricao, produto.complemento,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem
-inner join produto
-on produto.idProduto = imagem.idProduto
+
+
 
 select produto.idProduto, produto.produtoDescricao, produto.complemento,  produto.precoVenda, restricao.idRestricao, restricao.descricaoRestricao from restricaoProduto
 inner join produto

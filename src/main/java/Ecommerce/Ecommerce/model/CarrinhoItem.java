@@ -1,13 +1,13 @@
 package Ecommerce.Ecommerce.model;
 
-import java.math.BigDecimal;
-
 public class CarrinhoItem {
 
 	private Imagem imagem;
+	private Integer quantidade;
 
-	public CarrinhoItem(Imagem imagem) {
+	public CarrinhoItem(Imagem imagem, Integer quantidade) {
 		this.imagem = imagem;
+		this.quantidade = quantidade;
 	
 		// TODO Auto-generated constructor stub
 	}
@@ -19,8 +19,13 @@ public class CarrinhoItem {
 	public void setImagem(Imagem imagem) {
 		this.imagem = imagem;
 	}
+	public Integer getQuantidade1() {
+		return quantidade;
+	}
 
-	
+	public void setQuantidade1(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
 
 	@Override
 	public int hashCode() {

@@ -1,20 +1,50 @@
-function editarAjax(id){
+function paginacao(){
+	var paginas = parseInt($("#pagina").val());
+	var pagina = 1;
+	var valores = 0;
+	$('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
+	for (i = 1; i < paginas; i++) {
+	    if (i % 3==0){
+	    	pagina = pagina +1;
+	    	valores = valores +3;
+	    	 //$('#paginas').append('<li><a onclick:"buscaPagina()" href="##" > Pagina('+ pagina +')</a></li>');
+	    	 $('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
+	    	 
+	    }
+	}
+}     
+function buscaPagina(event){
+	var valor = event.currentTarget.value;
+	$.ajax({
+		url:'/produto/pagina',
+		data: "valor="+valor,
+		success: function(result){
+			$("#listaProduto").html(result);
+	},
+	error: function(result){
+		$("#mensagem").html(result.responseText);
+	}
+	})
+	
+}
+function pegaProduto(id){
+	limpaModal()
 		$.ajax({
 			url: '/api/produto/' + id,
 			success: function(result){
-			
-			$("#descricao").val(result.produto.descricao);
-			$("#descricao1").html(result.produto.descricao);
+			$("#descricao").html(result.produto.descricao);
 			$("#idProduto").val(result.produto.idProduto);
+			$("#quantidadeDisponivel").html(result.produto.quantidade);
+			$("#quantidadeEstoque").val(result.produto.quantidade);
+			$("#quantidade").append('<input type="number" min="0" max='+result.produto.quantidade +'">');
 			$("#imagem").append('<img width="250" height="136" src="imagens/'+ result.descricao +'">');
 			}
 		})
 	}
-
-function adicionarCarrinho(){
+function adicionarCarrinho(quantidade){
 	var produtoId = $("#idProduto").val();
 	$.ajax({
-		url : '/carrinho/' +produtoId,
+		url : '/carrinho/' +produtoId +'/'+ quantidade,
 		//method: 'post',
 		//data: produtoId, 
 		success: function(result){
@@ -27,30 +57,23 @@ function adicionarCarrinho(){
 		}
 	})
 }
-
-
-function CarregaCarrinho(){
-	$.ajax*{
-		url:'/api/produto',
-		success:function(result){
-			result.forEach(load);
+function validaQuantidade(event){
+	var quantidade = parseInt($("#quantidade").val());
+	var quantidadeEstoque = parseInt($("#quantidadeEstoque").val());
+	if (!isNaN(quantidade)) {
+		if(quantidade <= quantidadeEstoque){
+			adicionarCarrinho(quantidade);
+		}else{
+			alert("Quantidade insuficiente em estoque");
+			event.preventDefault();
 		}
+	}else{
+		alert("Isso não é um número");
+		event.preventDefault();
 	}
 }
-function carregarContato(){
-	$.ajax({
-		url: '/api/contato',
-		success: function(result){
-			result.forEach(load);
-		}
-	})	
-	
-}
-function load(contato){
-	var option = new Option(contato.nome, contato.id);
-	$("#opcoesContato").append(option);
-}		
 function limpaModal(){
 	$("#nome").html("");
 	$("#imagem").html("");
+	$("#quantidade").html("");
 }

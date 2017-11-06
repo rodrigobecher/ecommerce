@@ -26,11 +26,12 @@ public class CarrinhoComprasController {
 	@Autowired
 	private CarrinhoCompras carrinho;
 	
-	@GetMapping("/{produtoId}")
-	public ModelAndView add(@PathVariable Integer produtoId) {
+	@GetMapping("/{produtoId}/{quantidade}")
+	public ModelAndView add(@PathVariable Integer produtoId, @PathVariable Integer quantidade) {
+	
 	ModelAndView mv = new ModelAndView("redirect:/carrinho");
-	CarrinhoItem carrinhoItem = criaItem(produtoId);
-	carrinho.add(carrinhoItem);
+	CarrinhoItem carrinhoItem = criaItem(produtoId, quantidade);
+	carrinho.add(carrinhoItem, quantidade);
 	return mv;
 	}
 	@RequestMapping(method=RequestMethod.GET)
@@ -38,9 +39,9 @@ public class CarrinhoComprasController {
 		return new ModelAndView("itens");
 	}
 
-	private CarrinhoItem criaItem(Integer produtoID) {
+	private CarrinhoItem criaItem(Integer produtoID, Integer quantidade) {
 		Imagem imagem = repository.findbyId(produtoID);
-		CarrinhoItem carrinho = new CarrinhoItem(imagem);
+		CarrinhoItem carrinho = new CarrinhoItem(imagem, quantidade);
 		return carrinho;
 	}
 

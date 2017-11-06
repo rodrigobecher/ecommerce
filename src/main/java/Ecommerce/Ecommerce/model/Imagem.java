@@ -5,6 +5,13 @@ public class Imagem {
 	private String descricao;
 	private Produto produto;
 	private Restricao restricao;
+	private int paginas;
+	public int getPaginas() {
+		return paginas;
+	}
+	public void setPaginas(int paginas) {
+		this.paginas = paginas;
+	}
 	public int getIdImagem() {
 		return idImagem;
 	}

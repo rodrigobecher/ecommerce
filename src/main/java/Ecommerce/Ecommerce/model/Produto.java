@@ -9,7 +9,6 @@ public class Produto {
 	private int quantidade;
 	private Restricao restricao1;
 	
-	
 	public Restricao getRestricao1() {
 		return restricao1;
 	}

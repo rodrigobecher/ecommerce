@@ -9,9 +9,10 @@
 <title>Cadastro de Produtos</title>
 </head>
 <body>
-
-
-	<div class="container">
+<div class="jumbotron text-center">
+  <h1>Cadastro de Produtos</h1> 
+</div>
+<div class="container">
 	
 		<form action="/produto"  method="post" enctype="multipart/form-data">
 			<div class="form-group">
@@ -42,8 +43,8 @@
 				<input type="file" name="foto"id ="foto"/> 
 			</div>
 			<c:if test="${imagem.idImagem > 0 }">
-			<input type="hidden" name="codigo" value="${imagem.idImagem}"/>
-			<input type="hidden" name="idProduto" value="${imagem.produto.idProduto }"/>
+				<input type="hidden" name="codigo" value="${imagem.idImagem}"/>
+				<input type="hidden" name="idProduto" value="${imagem.produto.idProduto }"/>
 			</c:if>
 			<input type="hidden" name="codigo" value="0"/>
 			<div class="form-group">	
@@ -51,6 +52,6 @@
 				<a href="/produto" class="btn btn-default">Listar Produtos</a>
 			</div>
 		</form>
-		</div>	
+</div>	
 </body>
 </html>

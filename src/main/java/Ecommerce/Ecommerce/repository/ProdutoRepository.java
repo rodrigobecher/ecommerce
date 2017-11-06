@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 import Ecommerce.Ecommerce.model.Imagem;
 import Ecommerce.Ecommerce.model.Produto;
@@ -90,7 +91,7 @@ public class ProdutoRepository {
 	public List<Imagem> busca(){
 		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 
-				" on produto.idProduto = imagem.idProduto ", new ResultSetExtractor<List<Imagem>>(){
+				" on produto.idProduto = imagem.idProduto " , new ResultSetExtractor<List<Imagem>>(){
 			@Override
 			public List<Imagem> extractData(ResultSet rs) throws SQLException,  
             DataAccessException {  
@@ -106,6 +107,7 @@ public class ProdutoRepository {
 					produto.setIdProduto(rs.getInt("idProduto"));
 					produto.setComplemento(rs.getString("complemento"));
 					produto.setPrecoVenda(rs.getDouble("precoVenda"));
+					img.setPaginas(quantidadeRegistros());
 					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
 					produto.setRestricao1(rest);	
 					img.setProduto(produto); 
@@ -116,6 +118,47 @@ public class ProdutoRepository {
 		});
 		
 	}
+	public List<Imagem> buscaPaginas(Integer quantidade){
+		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
+				" inner join produto " + 
+				" on produto.idProduto = imagem.idProduto " +
+				" limit ?,3 ", new Object[] {quantidade}, new ResultSetExtractor<List<Imagem>>(){
+			@Override
+			public List<Imagem> extractData(ResultSet rs) throws SQLException,  
+            DataAccessException {  
+				List<Imagem> list = new ArrayList<Imagem>();
+				while(rs.next()) {
+					Imagem img = new Imagem();
+					Produto produto = new Produto();
+					Restricao rest = new Restricao();
+					img.setIdImagem(rs.getInt("idImagem"));
+					img.setDescricao(rs.getString("descricao"));
+					produto.setDescricao(rs.getString("produtoDescricao"));
+					produto.setQuantidade(rs.getInt("quantidade"));
+					produto.setIdProduto(rs.getInt("idProduto"));
+					produto.setComplemento(rs.getString("complemento"));
+					produto.setPrecoVenda(rs.getDouble("precoVenda"));
+					img.setPaginas(quantidadeRegistros());
+					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
+					produto.setRestricao1(rest);	
+					img.setProduto(produto); 
+		        list.add(img);  
+				}
+				 return list; 
+			}
+		});
+		
+	}
+	public int quantidadeRegistros() {
+		int quantidade =0;
+			SqlRowSet srs = jdbc.queryForRowSet("select count(*)  from produto");
+			while(srs.next()) {
+			 quantidade = srs.getInt("count(*)");	
+			}
+
+			return quantidade;
+	}
+	
 	public Imagem buscaIdProduto(Integer id){
 		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 

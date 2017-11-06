@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,15 +32,27 @@ public class ProdutoController {
 	@Autowired
 	ProdutoRepository repository;
 	@GetMapping
-	public ModelAndView Apresenta(Model modelo){
+	public ModelAndView Apresenta(@RequestParam(name="valor", required=false) Integer  valor,Model modelo){
+		if(valor == null) {
+		valor = 0;
+		}
 		ModelAndView mv = new ModelAndView("/listaProdutos");
-		//List<Imagem> list = repository.BuscaImgProduto();
-		List<Imagem> list = repository.busca();
-		//List<Restricao> rest = repository.buscaRestricaoProduto();
-		//mv.addObject("restricao", new ArrayList<Restricao>(rest));
+		List<Imagem> list = repository.buscaPaginas(valor);
 		mv.addObject("imagem", new ArrayList<Imagem>(list));
 		return mv;
 	}
+	@GetMapping("/pagina")
+	public ModelAndView ApresentaPagina(@RequestParam(name="valor", required=false) Integer  valor,Model modelo){
+		if(valor == null) {
+		valor = 0;
+		}
+		ModelAndView mv = new ModelAndView("ajaxProduto");
+		List<Imagem> list = repository.buscaPaginas(valor);
+		mv.addObject("imagem", new ArrayList<Imagem>(list));
+		return mv;
+	}
+	
+	
 	@PostMapping
 	public String salvar(Produto produto, @RequestParam(name="codigo") int codigo , @RequestParam("foto") MultipartFile imagem) {
 		ModelAndView mv = new ModelAndView("manterProdutos");
