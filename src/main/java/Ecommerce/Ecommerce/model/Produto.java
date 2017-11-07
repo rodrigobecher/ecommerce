@@ -9,6 +9,7 @@ public class Produto {
 	private double precoVenda;
 	private int[] restricao;
 	private int quantidade;
+<<<<<<< HEAD
 	private Imagem imagem;
 	private List<Restricao> restricoes;
 	private int paginas;
@@ -30,6 +31,10 @@ public class Produto {
 	public void setRestricoes(List<Restricao> restricoes) {
 		this.restricoes = restricoes;
 	}
+=======
+	private List<Restricao> restricoes;
+	
+>>>>>>> b6867d0168bd6104fa5e46df0986d510dab29d46
 	public int getIdProduto() {
 		return idProduto;
 	}
@@ -95,6 +100,12 @@ public class Produto {
 		if (idProduto != other.idProduto)
 			return false;
 		return true;
+	}
+	public List<Restricao> getRestricoes() {
+		return restricoes;
+	}
+	public void setRestricoes(List<Restricao> restricoes) {
+		this.restricoes = restricoes;
 	}
 	
 	

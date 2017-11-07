@@ -7,7 +7,6 @@ function paginacao(){
 	    if (i % 5==0){
 	    	pagina = pagina +1;
 	    	valores = valores +5;
-	    	 //$('#paginas').append('<li><a onclick:"buscaPagina()" href="##" > Pagina('+ pagina +')</a></li>');
 	    	 $('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
 	    	 
 	    }

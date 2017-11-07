@@ -82,7 +82,35 @@ public class ProdutoRepository {
 	public List<Produto> BuscaImgProduto(){
 		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 
+<<<<<<< HEAD
 				" on produto.idProduto = imagem.idProduto ", new ProdutoMapper());
+=======
+				" on produto.idProduto = imagem.idProduto " , new ResultSetExtractor<List<Imagem>>(){
+			@Override
+			public List<Imagem> extractData(ResultSet rs) throws SQLException,  
+            DataAccessException {  
+				List<Imagem> list = new ArrayList<Imagem>();
+				while(rs.next()) {
+					Imagem img = new Imagem();
+					Produto produto = new Produto();
+					Restricao rest = new Restricao();
+					img.setIdImagem(rs.getInt("idImagem"));
+					img.setDescricao(rs.getString("descricao"));
+					produto.setDescricao(rs.getString("produtoDescricao"));
+					produto.setQuantidade(rs.getInt("quantidade"));
+					produto.setIdProduto(rs.getInt("idProduto"));
+					produto.setComplemento(rs.getString("complemento"));
+					produto.setPrecoVenda(rs.getDouble("precoVenda"));
+					img.setPaginas(quantidadeRegistros());
+					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
+					// produto.setRestricao1(rest);	
+					img.setProduto(produto); 
+		        list.add(img);  
+				}
+				 return list; 
+			}
+		});
+>>>>>>> b6867d0168bd6104fa5e46df0986d510dab29d46
 		
 	}
 		
@@ -90,7 +118,11 @@ public class ProdutoRepository {
 		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 
 				" on produto.idProduto = imagem.idProduto " +
+<<<<<<< HEAD
 				" limit ?,5 ", new Object[] {quantidade}, new ResultSetExtractor<List<Produto>>(){
+=======
+				" limit ?,5 ", new Object[] {quantidade}, new ResultSetExtractor<List<Imagem>>(){
+>>>>>>> b6867d0168bd6104fa5e46df0986d510dab29d46
 			@Override
 			public List<Produto> extractData(ResultSet rs) throws SQLException,  
             DataAccessException {  
@@ -105,10 +137,18 @@ public class ProdutoRepository {
 					produto.setIdProduto(rs.getInt("idProduto"));
 					produto.setComplemento(rs.getString("complemento"));
 					produto.setPrecoVenda(rs.getDouble("precoVenda"));
+<<<<<<< HEAD
 					produto.setPaginas(quantidadeRegistros());
 					produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));	
 					produto.setImagem(img); 
 		        list.add(produto);  
+=======
+					img.setPaginas(quantidadeRegistros());
+					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
+					// produto.setRestricao1(rest);	
+					img.setProduto(produto); 
+		        list.add(img);  
+>>>>>>> b6867d0168bd6104fa5e46df0986d510dab29d46
 				}
 				 return list; 
 			}
@@ -129,7 +169,30 @@ public class ProdutoRepository {
 		return jdbc.queryForObject("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 
 				" on produto.idProduto = imagem.idProduto "+
+<<<<<<< HEAD
 				" where produto.idProduto = ?", new Object[] {id}, new ProdutoMapper());
+=======
+				" where imagem.idImagem = ?", new Object[] {id}, new ResultSetExtractor<Imagem>(){
+			@Override
+			public Imagem extractData(ResultSet rs) throws SQLException,  
+            DataAccessException {  
+				Imagem img = new Imagem();
+				while(rs.next()) {	
+					Produto produto = new Produto();
+					img.setIdImagem(rs.getInt("idImagem"));
+					img.setDescricao(rs.getString("descricao"));
+					produto.setDescricao(rs.getString("produtoDescricao"));
+					produto.setQuantidade(rs.getInt("quantidade"));
+					produto.setIdProduto(rs.getInt("idProduto"));
+					produto.setComplemento(rs.getString("complemento"));
+					produto.setPrecoVenda(rs.getDouble("precoVenda"));
+					produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));
+					img.setProduto(produto); 	          
+				}
+				 return img; 
+			}
+		});
+>>>>>>> b6867d0168bd6104fa5e46df0986d510dab29d46
 		
 	}
 	
@@ -204,8 +267,14 @@ public class ProdutoRepository {
 			produto.setComplemento(rs.getString("complemento"));
 			produto.setPrecoVenda(rs.getDouble("precoVenda"));
 			produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));
+<<<<<<< HEAD
 			produto.setImagem(img);
 			return produto;
+=======
+//			produto.setRestricao1(rest);
+			img.setProduto(produto);
+			return img;
+>>>>>>> b6867d0168bd6104fa5e46df0986d510dab29d46
 		}
 	}
 	class RestricaoMapper implements org.springframework.jdbc.core.RowMapper<Restricao>{

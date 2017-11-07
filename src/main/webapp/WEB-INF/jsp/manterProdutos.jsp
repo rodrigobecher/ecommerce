@@ -24,9 +24,15 @@
 				<textarea name="complemento"   id="complemento" rows="4" cols="50" class="form-control">${produto.complemento }</textarea>
 			</div>
 			<div class="form-group">
+
+			
+			
+			       
+			
 					<c:forEach items="${restricao}" var="restricao">
 						<c:set var="contains" value="false" />
-						<c:forEach items="${produto.restricoes}" var="restricaoProduto">
+						<c:forEach items="${imagem.produto.restricoes}" var="restricaoProduto">
+
 							<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
 								<c:set var="contains" value="true"/>
 							</c:if>
