@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonFormat.Value;
+
 import Ecommerce.Ecommerce.model.Imagem;
 import Ecommerce.Ecommerce.model.Produto;
 import Ecommerce.Ecommerce.model.Restricao;
@@ -37,8 +39,8 @@ public class ProdutoController {
 		valor = 0;
 		}
 		ModelAndView mv = new ModelAndView("/listaProdutos");
-		List<Imagem> list = repository.buscaPaginas(valor);
-		mv.addObject("imagem", new ArrayList<Imagem>(list));
+		List<Produto> list = repository.buscaPaginas(valor);
+		mv.addObject("listaProduto", new ArrayList<Produto>(list));
 		return mv;
 	}
 	@GetMapping("/pagina")
@@ -47,8 +49,8 @@ public class ProdutoController {
 		valor = 0;
 		}
 		ModelAndView mv = new ModelAndView("ajaxProduto");
-		List<Imagem> list = repository.buscaPaginas(valor);
-		mv.addObject("imagem", new ArrayList<Imagem>(list));
+		List<Produto> list = repository.buscaPaginas(valor);
+		mv.addObject("listaProduto", new ArrayList<Produto>(list));
 		return mv;
 	}
 	
@@ -75,13 +77,14 @@ public class ProdutoController {
 			Imagem img = new Imagem();
 			img.setIdImagem(codigo);
 			img.setDescricao(nome);
-			mv.addObject("produto", imagem);
-			repository.save(img, produto);	
+			produto.setImagem(img);
+			mv.addObject("produto", produto);
+			repository.save(produto);	
 		}
 		else if(imagem.isEmpty() && produto.getIdProduto() > 0) {
 			Imagem img = new Imagem();
 			img.setIdImagem(0);
-			repository.save(img,produto);	
+			repository.save(produto);	
 		}
 		return "redirect:/produto";
 	}
@@ -92,26 +95,25 @@ public class ProdutoController {
 		mv.addObject("restricao", new ArrayList<Restricao>(list));
 		return mv;
 	}
-	@GetMapping("/{id}/{id}")
-	public ModelAndView editar(Restricao restricao, @PathVariable Integer id){
-		Imagem imagem = repository.buscaIdProduto(id);
+	@GetMapping("/{id}")
+	public ModelAndView editar(@PathVariable int id){
+		Produto produto = repository.buscaIdProduto(id);
 		ModelAndView mv = new ModelAndView("/manterProdutos");	
 		List<Restricao> rest = repository.buscaRestricao();
-		//List<Restricao> restProduto = repository.buscaRestricaoProduto();
-		//mv.addObject("restricaoProduto", new ArrayList<Restricao>(restProduto));
 		mv.addObject("restricao", new ArrayList<Restricao>(rest));
-		mv.addObject("imagem", imagem);
+		mv.addObject("produto", produto);
 		return mv;
 	}
-	@GetMapping("/excluir/{id}/{id2}/{descricao}")
-	public String excluir(@PathVariable String descricao,@PathVariable Integer id, @PathVariable Integer id2) throws IOException {
+	@GetMapping("/excluir/{idProduto}/{idImagem}/{descricao}")
+	public String excluir(@PathVariable int idProduto,@PathVariable int idImagem, @PathVariable String descricao ) throws IOException {
 		try {
-		repository.excluir(id, id2, descricao);
+			repository.excluir(idProduto, idImagem);
 		return "redirect:/produto";
 		}
 		catch (IOException e) {
 			return "redirect:/produto";
 		}
+		
 	}
 }
 

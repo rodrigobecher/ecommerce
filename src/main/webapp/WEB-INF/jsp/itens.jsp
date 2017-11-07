@@ -39,22 +39,28 @@
 		   </tr>
 		 </thead>
 		    <tbody>
+		    	
 		    	<c:forEach items="${carrinhoCompras.itens }" var="item">
+		    	
 			     <tr>
-			          <td class="card"><img src="imagens/${item.imagem.descricao }" width="130px" height="100px"/></td>
-			          <td class="item-title">${item.imagem.produto.descricao }</td>
-			          <td class="money">${item.imagem.produto.precoVenda }</td>
+			     	
+			          <td class="card"><img src="imagens/${item.produto.imagem.descricao }" width="130px" height="100px"/></td>
+			          <td class="item-title">${item.produto.descricao }</td>
+			          <td class="money">${item.produto.precoVenda }</td>
 			          <td class="quantity-input-cell">
 			          <input type="number" min="0" readonly="readonly" id="quantidade" name="quantidade" value="${carrinhoCompras.getQuantidade(item) }"/></td>
 			          <td class="numeric-cell">${carrinhoCompras.getTotal(item) }</td>
 			          <td class="remove-item">
-			          	<form action="" method="post">
-			         		<input type="button" class="btn btn-danger" value="Excluir" title="Excluir" />
+			          	<form action="carrinho/excluir" method="post">
+			          		<input type="submit" class="btn btn-danger" value="Excluir" title="Excluir" />
 			         			
 			         	</form>
 			          </td>
+			       
 			     </tr>
+			     
 			    </c:forEach>
+			       
 		    </tbody>
 		      <tfoot>
 		      	<tr>

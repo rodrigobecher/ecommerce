@@ -2,23 +2,37 @@ package Ecommerce.Ecommerce.model;
 
 public class CarrinhoItem {
 
-	private Imagem imagem;
+	private Produto produto;
 	private Integer quantidade;
 
-	public CarrinhoItem(Imagem imagem, Integer quantidade) {
-		this.imagem = imagem;
+	public CarrinhoItem(Produto produto, Integer quantidade) {
+		this.produto = produto;
 		this.quantidade = quantidade;
 	
 		// TODO Auto-generated constructor stub
 	}
 
-	public Imagem getImagem() {
-		return imagem;
+	
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setImagem(Imagem imagem) {
-		this.imagem = imagem;
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
+
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
+
 	public Integer getQuantidade1() {
 		return quantidade;
 	}
@@ -31,7 +45,7 @@ public class CarrinhoItem {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((imagem == null) ? 0 : imagem.hashCode());
+		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		
 		return result;
 	}
@@ -45,17 +59,17 @@ public class CarrinhoItem {
 		if (getClass() != obj.getClass())
 			return false;
 		CarrinhoItem other = (CarrinhoItem) obj;
-		if (imagem == null) {
-			if (other.imagem != null)
+		if (produto == null) {
+			if (other.produto != null)
 				return false;
-		} else if (!imagem.equals(other.imagem))
+		} else if (!produto.equals(other.produto))
 			return false;
 		
 		return true;
 	}
 
 	public double getTotal(int quantidade) {
-		return this.getImagem().getProduto().getPrecoVenda() * quantidade;
+		return this.getProduto().getPrecoVenda() * quantidade;
 		
 	}
 

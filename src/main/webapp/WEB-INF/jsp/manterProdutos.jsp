@@ -17,34 +17,45 @@
 		<form action="/produto"  method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="descricao">Descrição</label>
-				<input type="text" value="${imagem.produto.descricao }"  name="descricao" id="descricao" class="form-control" required autofocus>
+				<input type="text" value="${produto.descricao }"  name="descricao" id="descricao" class="form-control" required autofocus>
 			</div>
 			<div class="form-group">
 				<p>Complemento</p>
-				<textarea name="complemento"   id="complemento" rows="4" cols="50" class="form-control">${imagem.produto.complemento }</textarea>
+				<textarea name="complemento"   id="complemento" rows="4" cols="50" class="form-control">${produto.complemento }</textarea>
 			</div>
 			<div class="form-group">
-					<c:forEach items="${restricao}" var="restricao"  >	
-						<div class="checkbox">		
-							<input name="restricao"  type="checkbox"value="${restricao.idRestricao}">${restricao.descricaoRestricao}	
+					<c:forEach items="${restricao}" var="restricao">
+						<c:set var="contains" value="false" />
+						<c:forEach items="${produto.restricoes}" var="restricaoProduto">
+							<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
+								<c:set var="contains" value="true"/>
+							</c:if>
+						</c:forEach>	
+						
+						<div class="checkbox">
+							<input name="restricao"  type="checkbox" value="${restricao.idRestricao}"
+								<c:if test="${contains eq true}">
+									checked
+								</c:if>
+							>${restricao.descricaoRestricao}</input>	
 						</div>			
 					</c:forEach>
 			</div>
 			<div class="form-group">
 				<label for="quantidade">Quantidade</label>
-				<input type="number" value="${imagem.produto.quantidade }" name="quantidade" id ="quantidade" class="form-control"/> 
+				<input type="number" value="${produto.quantidade }" name="quantidade" id ="quantidade" class="form-control"/> 
 			</div>
 			<div class="form-group">
 				<label for="precoVenda">Preço de Venda</label>
-				<input type="number" value="${imagem.produto.precoVenda }" name="precoVenda" id ="precoVenda" class="form-control"/> 
+				<input type="number" value="${produto.precoVenda }" name="precoVenda" id ="precoVenda" class="form-control"/> 
 			</div>
 			<div class="form-group">
 				<label for="foto">Imagem</label>
 				<input type="file" name="foto"id ="foto"/> 
 			</div>
 			<c:if test="${imagem.idImagem > 0 }">
-				<input type="hidden" name="codigo" value="${imagem.idImagem}"/>
-				<input type="hidden" name="idProduto" value="${imagem.produto.idProduto }"/>
+				<input type="hidden" name="codigo" value="${produto.imagem.idImagem}"/>
+				<input type="hidden" name="idProduto" value="${produto.idProduto }"/>
 			</c:if>
 			<input type="hidden" name="codigo" value="0"/>
 			<div class="form-group">	

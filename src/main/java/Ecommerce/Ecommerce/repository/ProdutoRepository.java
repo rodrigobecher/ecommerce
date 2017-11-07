@@ -2,9 +2,6 @@ package Ecommerce.Ecommerce.repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,14 +28,14 @@ public class ProdutoRepository {
 	@Autowired
 	private JdbcTemplate jdbc;
 	
-	public void save(Imagem imagem, Produto produto) {
+	public void save(Produto produto) {
 		
 		if(produto.getIdProduto() == 0) {
-			insertProdutos(imagem, produto);
+			insertProdutos(produto);
 		}
 		else { 
 				
-				alterarImagem(imagem);
+				alterarImagem(produto);
 				alterarProduto(produto);
 				if(produto.getRestricaoTamanho() == null) {
 					
@@ -52,13 +49,13 @@ public class ProdutoRepository {
 		f.delete();
 			
 	}
-	public void excluir(Integer id, Integer id2, String descricao) throws IOException {
-		excluirImagem(descricao);
+	public void excluir(Integer idProduto, Integer idImagem) throws IOException {
+		//excluirImagem(descricao);
 		
 		jdbc.update("delete from imagem where idImagem = ?",
-				new Object[]{id});
+				new Object[]{idImagem});
 		jdbc.update("delete from produto where idProduto = ?",
-				new Object[] {id2});
+				new Object[] {idProduto});
 	}
 	
 		
@@ -70,67 +67,37 @@ public class ProdutoRepository {
 				produto.getPrecoVenda(),
 				produto.getIdProduto());
 	}
-	public void alterarImagem(Imagem imagem) {
+	public void alterarImagem(Produto produto) {
 		jdbc.update("update imagem set descricao = ? where idImagem = ?",
-				imagem.getDescricao(),
-				imagem.getIdImagem());
+				produto.getImagem().getDescricao(),
+				produto.getImagem().getIdImagem());
 	}
-	private int insertImagem(Imagem imagem, Produto produto) {
+	private int insertImagem(Produto produto) {
 		int idProduto = insertProduto(produto);
 		jdbc.update("insert into imagem (descricao, idProduto) values (?,?)",
-				imagem.getDescricao(),
+				produto.getImagem().getDescricao(),
 				idProduto);
 		return idProduto;
 	}
-	public List<Imagem> BuscaImgProduto(){
+	public List<Produto> BuscaImgProduto(){
 		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 
-				" on produto.idProduto = imagem.idProduto ", new ImagemMapper());
-	}
-	
-	public List<Imagem> busca(){
-		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
-				" inner join produto " + 
-				" on produto.idProduto = imagem.idProduto " , new ResultSetExtractor<List<Imagem>>(){
-			@Override
-			public List<Imagem> extractData(ResultSet rs) throws SQLException,  
-            DataAccessException {  
-				List<Imagem> list = new ArrayList<Imagem>();
-				while(rs.next()) {
-					Imagem img = new Imagem();
-					Produto produto = new Produto();
-					Restricao rest = new Restricao();
-					img.setIdImagem(rs.getInt("idImagem"));
-					img.setDescricao(rs.getString("descricao"));
-					produto.setDescricao(rs.getString("produtoDescricao"));
-					produto.setQuantidade(rs.getInt("quantidade"));
-					produto.setIdProduto(rs.getInt("idProduto"));
-					produto.setComplemento(rs.getString("complemento"));
-					produto.setPrecoVenda(rs.getDouble("precoVenda"));
-					img.setPaginas(quantidadeRegistros());
-					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
-					produto.setRestricao1(rest);	
-					img.setProduto(produto); 
-		        list.add(img);  
-				}
-				 return list; 
-			}
-		});
+				" on produto.idProduto = imagem.idProduto ", new ProdutoMapper());
 		
 	}
-	public List<Imagem> buscaPaginas(Integer quantidade){
+		
+	public List<Produto> buscaPaginas(Integer quantidade){
 		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 
 				" on produto.idProduto = imagem.idProduto " +
-				" limit ?,3 ", new Object[] {quantidade}, new ResultSetExtractor<List<Imagem>>(){
+				" limit ?,5 ", new Object[] {quantidade}, new ResultSetExtractor<List<Produto>>(){
 			@Override
-			public List<Imagem> extractData(ResultSet rs) throws SQLException,  
+			public List<Produto> extractData(ResultSet rs) throws SQLException,  
             DataAccessException {  
-				List<Imagem> list = new ArrayList<Imagem>();
+				List<Produto> list = new ArrayList<Produto>();
 				while(rs.next()) {
 					Imagem img = new Imagem();
 					Produto produto = new Produto();
-					Restricao rest = new Restricao();
 					img.setIdImagem(rs.getInt("idImagem"));
 					img.setDescricao(rs.getString("descricao"));
 					produto.setDescricao(rs.getString("produtoDescricao"));
@@ -138,11 +105,10 @@ public class ProdutoRepository {
 					produto.setIdProduto(rs.getInt("idProduto"));
 					produto.setComplemento(rs.getString("complemento"));
 					produto.setPrecoVenda(rs.getDouble("precoVenda"));
-					img.setPaginas(quantidadeRegistros());
-					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
-					produto.setRestricao1(rest);	
-					img.setProduto(produto); 
-		        list.add(img);  
+					produto.setPaginas(quantidadeRegistros());
+					produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));	
+					produto.setImagem(img); 
+		        list.add(produto);  
 				}
 				 return list; 
 			}
@@ -159,41 +125,12 @@ public class ProdutoRepository {
 			return quantidade;
 	}
 	
-	public Imagem buscaIdProduto(Integer id){
-		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
-				" inner join produto " + 
-				" on produto.idProduto = imagem.idProduto "+
-				" where imagem.idImagem = ?", new Object[] {id}, new ResultSetExtractor<Imagem>(){
-			@Override
-			public Imagem extractData(ResultSet rs) throws SQLException,  
-            DataAccessException {  
-				Imagem img = new Imagem();
-				while(rs.next()) {	
-					Produto produto = new Produto();
-					Restricao rest = new Restricao();
-					img.setIdImagem(rs.getInt("idImagem"));
-					img.setDescricao(rs.getString("descricao"));
-					produto.setDescricao(rs.getString("produtoDescricao"));
-					produto.setQuantidade(rs.getInt("quantidade"));
-					produto.setIdProduto(rs.getInt("idProduto"));
-					produto.setComplemento(rs.getString("complemento"));
-					produto.setPrecoVenda(rs.getDouble("precoVenda"));
-					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
-					produto.setRestricao1(rest);	
-					img.setProduto(produto); 	          
-				}
-				 return img; 
-			}
-		});
-		
-	}
-	
-	public Imagem findbyId(Integer id) {
+	public Produto buscaIdProduto(Integer id){
 		return jdbc.queryForObject("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 
-				" on imagem.idProduto = produto.idProduto "
-	+ " where imagem.idImagem = ?", new Object[]{id}, new ImagemMapper());
-
+				" on produto.idProduto = imagem.idProduto "+
+				" where produto.idProduto = ?", new Object[] {id}, new ProdutoMapper());
+		
 	}
 	
 	public List<Restricao> buscaRestricao(){
@@ -224,8 +161,8 @@ public class ProdutoRepository {
 				" where idProduto = ?", new Object[] {id}, new RestricaoProdutoMapper());
 	}
 	
-	private void insertProdutos(Imagem imagem, Produto produto) {
-			int idProduto = insertImagem(imagem, produto);
+	private void insertProdutos(Produto produto) {
+			int idProduto = insertImagem(produto);
 				 for(int i = 0; i < produto.getRestricaoTamanho().length; i++) {
 					 jdbc.update("insert into restricaoProduto (idRestricao, idProduto) values (?, ?)",
 							produto.getRestricao(i),
@@ -254,11 +191,10 @@ public class ProdutoRepository {
 		
 	
 	
-	class ImagemMapper implements org.springframework.jdbc.core.RowMapper<Imagem>{
+	class ProdutoMapper implements org.springframework.jdbc.core.RowMapper<Produto>{
 		@Override
-		public Imagem mapRow(ResultSet rs, int rowNumber) throws SQLException{
+		public Produto mapRow(ResultSet rs, int rowNumber) throws SQLException{
 			Imagem img = new Imagem();
-			Restricao rest = new Restricao();
 			Produto produto = new Produto();
 			img.setIdImagem(rs.getInt("idImagem"));
 			img.setDescricao(rs.getString("descricao"));
@@ -267,10 +203,9 @@ public class ProdutoRepository {
 			produto.setIdProduto(rs.getInt("idProduto"));
 			produto.setComplemento(rs.getString("complemento"));
 			produto.setPrecoVenda(rs.getDouble("precoVenda"));
-			rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
-			produto.setRestricao1(rest);
-			img.setProduto(produto);
-			return img;
+			produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));
+			produto.setImagem(img);
+			return produto;
 		}
 	}
 	class RestricaoMapper implements org.springframework.jdbc.core.RowMapper<Restricao>{
@@ -298,11 +233,5 @@ public class ProdutoRepository {
 		jdbc.update("insert into carrinho (idProduto) values (?)",
 				new Object[] {idProduto});
 	}
-	public List<Imagem> buscaCarrinhoProdutos() {
-		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.restricao, produto.complemento, produto.precoVenda, imagem.idImagem, imagem.descricao from carrinho" + 
-				" inner join produto " + 
-				" on carrinho.idProduto = produto.idProduto " + 
-				" inner join imagem " + 
-				" on carrinho.idProduto = imagem.idProduto ", new ImagemMapper());
-	}
+	
 }

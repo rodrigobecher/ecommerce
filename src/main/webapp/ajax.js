@@ -4,9 +4,9 @@ function paginacao(){
 	var valores = 0;
 	$('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
 	for (i = 1; i < paginas; i++) {
-	    if (i % 3==0){
+	    if (i % 5==0){
 	    	pagina = pagina +1;
-	    	valores = valores +3;
+	    	valores = valores +5;
 	    	 //$('#paginas').append('<li><a onclick:"buscaPagina()" href="##" > Pagina('+ pagina +')</a></li>');
 	    	 $('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
 	    	 
@@ -32,12 +32,12 @@ function pegaProduto(id){
 		$.ajax({
 			url: '/api/produto/' + id,
 			success: function(result){
-			$("#descricao").html(result.produto.descricao);
-			$("#idProduto").val(result.produto.idProduto);
-			$("#quantidadeDisponivel").html(result.produto.quantidade);
-			$("#quantidadeEstoque").val(result.produto.quantidade);
-			$("#quantidade").append('<input type="number" min="0" max='+result.produto.quantidade +'">');
-			$("#imagem").append('<img width="250" height="136" src="imagens/'+ result.descricao +'">');
+			$("#descricao").html(result.descricao);
+			$("#idProduto").val(result.idProduto);
+			$("#quantidadeDisponivel").html(result.quantidade);
+			$("#quantidadeEstoque").val(result.quantidade);
+			$("#quantidade").append('<input type="number" min="0" max='+result.quantidade +'">');
+			$("#imagem").append('<img width="250" height="136" src="imagens/'+ result.imagem.descricao +'">');
 			}
 		})
 	}

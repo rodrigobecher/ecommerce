@@ -121,7 +121,7 @@ SELECT SQL_CALC_FOUND_ROWS * FROM pessoa LIMIT 0,10
 
 
 
-
+use ecommerce
 
 truncate produto
 truncate imagem
@@ -131,6 +131,7 @@ SELECT SQL_CALC_FOUND_ROWS * FROM pessoa LIMIT 0,10
 select produto.idProduto, produto.produtoDescricao, produto.complemento,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem
 inner join produto
 on produto.idProduto = imagem.idProduto
+where produto.idProduto = 43
 limit 0,3;
 select found_rows()
 select * from produto

@@ -31,31 +31,30 @@
 	  </div>
 	</div>
 		<div class="row">
-			<c:forEach items="${imagem}" var="imagem"  >
-   		
+			<c:forEach items="${listaProduto}" var="produto"  >
   			<div class="col-sm-6 col-md-4">
    				<div class="thumbnail">
-   				 <a href="#" onclick="pegaProduto(${imagem.idImagem})" data-toggle="modal" data-target="#myModal" title="Detalhes">
-     				 <c:if test="${imagem.descricao != null }">
-     				 	 <img class="img-responsive" src="imagens/${imagem.descricao }" alt="imagem do Produto" width="300px" height="450px" > 	
+   				 <a href="#" onclick="pegaProduto(${produto.idProduto})" data-toggle="modal" data-target="#myModal" title="Detalhes">
+     				 <c:if test="${produto.imagem.descricao != null }">
+     				 	 <img class="img-responsive" src="imagens/${produto.imagem.descricao }" alt="imagem do Produto" width="300px" height="450px" > 	
 					</c:if>
 					</a>
 				     	 <div class="caption">
-				     	 		<input type="hidden" id="pagina" value="${imagem.paginas}">
-			       				<p>Descrição: ${imagem.produto.descricao}</p>
-								<p>Complemento: ${imagem.produto.complemento}</p>
-								<p>Quantidade Estoque: ${imagem.produto.quantidade }</p>
+				     	 		<input type="hidden" id="pagina" value="${produto.paginas}">
+			       				<p>Descrição: ${produto.descricao}</p>
+								<p>Complemento: ${produto.complemento}</p>
+								<p>Quantidade Estoque: ${produto.quantidade }</p>
 								<h4>Restrições</h4>
-								<p>Preço unitário: ${imagem.produto.precoVenda }</p>
+								<p>Preço unitário: ${produto.precoVenda }</p>
+								<h4>Restrições</h4>
 								<ul> 
-									<c:forEach items="${imagem.produto.restricao1.lista}" var="produto" >
-										 <li>${produto.descricaoRestricao }</li>
+									<c:forEach items="${produto.restricoes}" var="produtoRest" >
+										 <li>${produtoRest.descricaoRestricao }</li>
 									</c:forEach>
 								</ul>
-			       			    <p><a href="produto/${imagem.idImagem}/${imagem.produto.idProduto}" class="btn btn-sm">Alterar</a>
-			       			    <a href="produto/excluir/${imagem.idImagem}/${imagem.produto.idProduto}/${imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
-									
-							
+								<p><a href="produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
+								<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
+			       			    
 			      		</div>
     			</div>
   			</div>

@@ -3,15 +3,6 @@ package Ecommerce.Ecommerce.model;
 public class Imagem {
 	private int idImagem;
 	private String descricao;
-	private Produto produto;
-	private Restricao restricao;
-	private int paginas;
-	public int getPaginas() {
-		return paginas;
-	}
-	public void setPaginas(int paginas) {
-		this.paginas = paginas;
-	}
 	public int getIdImagem() {
 		return idImagem;
 	}
@@ -23,18 +14,6 @@ public class Imagem {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-	public Produto getProduto() {
-		return produto;
-	}
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-	public Restricao getRestricao() {
-		return restricao;
-	}
-	public void setRestricao(Restricao restricao) {
-		this.restricao = restricao;
 	}
 	@Override
 	public int hashCode() {
