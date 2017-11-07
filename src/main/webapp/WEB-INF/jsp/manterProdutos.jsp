@@ -24,9 +24,24 @@
 				<textarea name="complemento"   id="complemento" rows="4" cols="50" class="form-control">${imagem.produto.complemento }</textarea>
 			</div>
 			<div class="form-group">
-					<c:forEach items="${restricao}" var="restricao"  >	
-						<div class="checkbox">		
-							<input name="restricao"  type="checkbox"value="${restricao.idRestricao}">${restricao.descricaoRestricao}	
+			
+			
+			       
+			
+					<c:forEach items="${restricao}" var="restricao">
+						<c:set var="contains" value="false" />
+						<c:forEach items="${imagem.produto.restricoes}" var="restricaoProduto">
+							<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
+								<c:set var="contains" value="true"/>
+							</c:if>
+						</c:forEach>	
+						
+						<div class="checkbox">
+							<input name="restricao"  type="checkbox" value="${restricao.idRestricao}"
+								<c:if test="${contains eq true}">
+									checked
+								</c:if>
+							>${restricao.descricaoRestricao}</input>	
 						</div>			
 					</c:forEach>
 			</div>

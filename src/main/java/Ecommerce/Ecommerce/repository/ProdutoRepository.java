@@ -109,7 +109,7 @@ public class ProdutoRepository {
 					produto.setPrecoVenda(rs.getDouble("precoVenda"));
 					img.setPaginas(quantidadeRegistros());
 					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
-					produto.setRestricao1(rest);	
+					// produto.setRestricao1(rest);	
 					img.setProduto(produto); 
 		        list.add(img);  
 				}
@@ -122,7 +122,7 @@ public class ProdutoRepository {
 		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
 				" inner join produto " + 
 				" on produto.idProduto = imagem.idProduto " +
-				" limit ?,3 ", new Object[] {quantidade}, new ResultSetExtractor<List<Imagem>>(){
+				" limit ?,5 ", new Object[] {quantidade}, new ResultSetExtractor<List<Imagem>>(){
 			@Override
 			public List<Imagem> extractData(ResultSet rs) throws SQLException,  
             DataAccessException {  
@@ -140,7 +140,7 @@ public class ProdutoRepository {
 					produto.setPrecoVenda(rs.getDouble("precoVenda"));
 					img.setPaginas(quantidadeRegistros());
 					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
-					produto.setRestricao1(rest);	
+					// produto.setRestricao1(rest);	
 					img.setProduto(produto); 
 		        list.add(img);  
 				}
@@ -170,7 +170,6 @@ public class ProdutoRepository {
 				Imagem img = new Imagem();
 				while(rs.next()) {	
 					Produto produto = new Produto();
-					Restricao rest = new Restricao();
 					img.setIdImagem(rs.getInt("idImagem"));
 					img.setDescricao(rs.getString("descricao"));
 					produto.setDescricao(rs.getString("produtoDescricao"));
@@ -178,8 +177,7 @@ public class ProdutoRepository {
 					produto.setIdProduto(rs.getInt("idProduto"));
 					produto.setComplemento(rs.getString("complemento"));
 					produto.setPrecoVenda(rs.getDouble("precoVenda"));
-					rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
-					produto.setRestricao1(rest);	
+					produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));
 					img.setProduto(produto); 	          
 				}
 				 return img; 
@@ -267,8 +265,8 @@ public class ProdutoRepository {
 			produto.setIdProduto(rs.getInt("idProduto"));
 			produto.setComplemento(rs.getString("complemento"));
 			produto.setPrecoVenda(rs.getDouble("precoVenda"));
-			rest.setLista(buscaRestricaoProduto(produto.getIdProduto()));
-			produto.setRestricao1(rest);
+			produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));
+//			produto.setRestricao1(rest);
 			img.setProduto(produto);
 			return img;
 		}

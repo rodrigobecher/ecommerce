@@ -32,7 +32,7 @@ public class ProdutoController {
 	@Autowired
 	ProdutoRepository repository;
 	@GetMapping
-	public ModelAndView Apresenta(@RequestParam(name="valor", required=false) Integer  valor,Model modelo){
+	public ModelAndView apresenta(@RequestParam(name="valor", required=false) Integer  valor,Model modelo){
 		if(valor == null) {
 		valor = 0;
 		}
@@ -42,7 +42,7 @@ public class ProdutoController {
 		return mv;
 	}
 	@GetMapping("/pagina")
-	public ModelAndView ApresentaPagina(@RequestParam(name="valor", required=false) Integer  valor,Model modelo){
+	public ModelAndView apresentaPagina(@RequestParam(name="valor", required=false) Integer  valor,Model modelo){
 		if(valor == null) {
 		valor = 0;
 		}
@@ -57,14 +57,14 @@ public class ProdutoController {
 	public String salvar(Produto produto, @RequestParam(name="codigo") int codigo , @RequestParam("foto") MultipartFile imagem) {
 		ModelAndView mv = new ModelAndView("manterProdutos");
 		if(!imagem.isEmpty()) {
-			String diretorio ="C:\\Users\\Rodrigo\\Pictures\\imagens\\";
+			String diretorio ="C:\\Users\\paulo\\Pictures\\imagens\\";
 			String nome = UUID.randomUUID().toString() + ".jpg";
 			Path caminho = Paths.get(diretorio + nome);
 			File file = new File(diretorio, nome);
 			file.canRead();
 			try {
 				Files.write(caminho, imagem.getBytes());
-				File thumbnailDirectory = new File("C:\\Users\\Rodrigo\\Pictures\\imagens\\");
+				File thumbnailDirectory = new File("C:\\Users\\paulo\\Pictures\\imagens\\");
 				File thumbnail = new File(thumbnailDirectory, nome);			
 				Thumbnails.of(file).size(500, 200).toFile(thumbnail);
 		}catch (IOException e) {

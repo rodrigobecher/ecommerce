@@ -4,10 +4,9 @@ function paginacao(){
 	var valores = 0;
 	$('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
 	for (i = 1; i < paginas; i++) {
-	    if (i % 3==0){
+	    if (i % 5==0){
 	    	pagina = pagina +1;
-	    	valores = valores +3;
-	    	 //$('#paginas').append('<li><a onclick:"buscaPagina()" href="##" > Pagina('+ pagina +')</a></li>');
+	    	valores = valores +5;
 	    	 $('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
 	    	 
 	    }
