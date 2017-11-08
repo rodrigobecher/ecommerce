@@ -45,4 +45,11 @@ public class CarrinhoCompras implements Serializable{
 		}
 		return total;
 	}
+
+	public void remover(Integer produtoId) {
+		Produto produto = new Produto();
+		produto.setIdProduto(produtoId);
+		itens.remove(produto);
+		
+	}
 }

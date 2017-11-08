@@ -40,9 +40,10 @@ public class CarrinhoComprasController {
 		return new ModelAndView("itens");
 	}
 	
-	@PostMapping("/excluir")
-	public ModelAndView excluir(CarrinhoCompras carrinho) {
+	@PostMapping("/excluir/{produtoid}")
+	public ModelAndView excluir(@PathVariable Integer produtoId) {
 		ModelAndView mv = new ModelAndView("redirect:/carrinho");
+		carrinho.remover(produtoId);
 		return mv;
 	}
 
