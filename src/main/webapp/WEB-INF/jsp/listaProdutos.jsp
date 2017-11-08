@@ -58,6 +58,7 @@
 	      </div> 
 	  </div>
 	</div>
+		<div> ${mensagem}</div>
 		<div class="row">
 			<c:forEach items="${listaProduto}" var="produto"  >
    		

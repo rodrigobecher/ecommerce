@@ -2,6 +2,7 @@ package Ecommerce.Ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,10 +41,10 @@ public class CarrinhoComprasController {
 		return new ModelAndView("itens");
 	}
 	
-	@PostMapping("/excluir/{produtoid}")
-	public ModelAndView excluir(@PathVariable Integer produtoId) {
+	@RequestMapping(value = "/excluir/{produtoId}/{quantidade}", method = RequestMethod.POST)
+	public ModelAndView excluir(@PathVariable int produtoId, @PathVariable int quantidade) {
 		ModelAndView mv = new ModelAndView("redirect:/carrinho");
-		carrinho.remover(produtoId);
+		carrinho.remover(produtoId,quantidade);
 		return mv;
 	}
 

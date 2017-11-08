@@ -78,13 +78,14 @@ create table imagem(
     descricaoPagamento varchar(60) not null,
     primary key(idFormaPagamento)
 ); */
-
+use ecommerce
+drop table pedido
 create table pedido(
 	idPedido int not null auto_increment,
     valorTotal double not null,
-    idCliente int not null,
-    idFormaPagamento int not null,
-    foreign key (idCliente) references cliente(idCliente) on delete cascade on update cascade,
+   -- idCliente int not null,
+    -- idFormaPagamento int not null,
+   -- foreign key (idCliente) references cliente(idCliente) on delete cascade on update cascade,
     -- foreign key (idFormaPagamento) references formaPagamento(idFormaPagamento) on delete cascade on update cascade,
     primary key(idPedido)
 );
@@ -107,24 +108,6 @@ insert into restricao(descricaoRestricao) values ('Sem Frutose');
 SELECT SQL_CALC_FOUND_ROWS * FROM pessoa LIMIT 0,10
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-use ecommerce
-
-truncate produto
-truncate imagem
 select idRestricao, descricaoRestricao from restricao
 / insert into restricaoProduto (idRestricao, idProduto) values (3, 1)
 SELECT SQL_CALC_FOUND_ROWS * FROM pessoa LIMIT 0,10

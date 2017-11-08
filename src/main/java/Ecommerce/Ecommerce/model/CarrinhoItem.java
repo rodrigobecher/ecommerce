@@ -1,7 +1,11 @@
 package Ecommerce.Ecommerce.model;
 
-public class CarrinhoItem {
+import java.io.Serializable;
 
+public class CarrinhoItem implements Serializable{
+
+	
+	private static final long serialVersionUID = 1L;
 	private Produto produto;
 	private Integer quantidade;
 
@@ -31,16 +35,6 @@ public class CarrinhoItem {
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-
-
-	public Integer getQuantidade1() {
-		return quantidade;
-	}
-
-	public void setQuantidade1(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

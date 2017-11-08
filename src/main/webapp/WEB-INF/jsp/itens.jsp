@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript"
+	src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
+	</script>
 <title>Carrinho</title>
 </head>
 <body>
@@ -39,7 +42,6 @@
 		   </tr>
 		 </thead>
 		    <tbody>
-		    	
 		    	<c:forEach items="${carrinhoCompras.itens }" var="item">		    	
 			     <tr>     	
 			          <td class="card"><img src="imagens/${item.produto.imagem.descricao }" width="130px" height="100px"/></td>
@@ -49,20 +51,23 @@
 			          <input type="number" min="0" readonly="readonly" id="quantidade" name="quantidade" value="${carrinhoCompras.getQuantidade(item) }"/></td>
 			          <td class="numeric-cell">${carrinhoCompras.getTotal(item) }</td>
 			          <td class="remove-item">
-			          	<form action="carrinho/excluir/${item.produto.idProduto}" method="post">
+			          	<form action="carrinho/excluir/${item.produto.idProduto}/${carrinhoCompras.getQuantidade(item)}" method="post">
 			          		<input type="submit" class="btn btn-danger" value="Excluir" title="Excluir" />
-			         			
-			         	</form>
-			          </td>
-			       
+			         	</form>				         	
+			          </td>   
 			     </tr>
-			     
-			    </c:forEach>
-			       
+			    </c:forEach>			       
 		    </tbody>
 		      <tfoot>
 		      	<tr>
-		      		<td><input type="submit" class="btn btn-success" name="checkout" value="FinalizarCompra"></td>
+		      	<td>
+		      	<form action="pagamento/finalizar" method="post">
+		      		<input type="submit" onclick="PagSeguroLightbox('3EB9ABF9E7CC4EA28057AC3A15ED522E')" class="btn btn-success" name="checkout" value="FinalizarCompra">
+		      	</form>
+		      	</td>
+		      	
+		      	
+						        
 		      		<td></td>
 		      		<td></td>
 		      		<td></td>
@@ -75,5 +80,7 @@
 	 </section>
 	 
 	 <script src="ajax.js"></script>
-</body>
+	 <script type="text/javascript"
+		src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
+	</script>
 </html>

@@ -76,3 +76,15 @@ function limpaModal(){
 	$("#imagem").html("");
 	$("#quantidade").html("");
 }
+function PagSeguroLightbox(){
+PagSeguroLightbox({
+    code: '1F69A3CF7878ED9994B3DF9DDC706796'
+    }, {
+    success : function(transactionCode) {
+        alert("success - " + transactionCode);
+    },
+    abort : function() {
+        alert("abort");
+    }
+});
+}
