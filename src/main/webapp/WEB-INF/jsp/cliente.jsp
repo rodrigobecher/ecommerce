@@ -11,7 +11,7 @@
 <body>
 	<div class="container">
 	
-		<form action="cliente"  method="post">
+		<form action="/cliente"  method="post">
 			<div class="form-group">
 				<label for="nome">Nome</label>
 				<input type="text"  name="nome" id="nome" class="form-control" required autofocus>
@@ -29,8 +29,24 @@
 				<input type="text" name="cpf"  id="cpf" class="form-control" required>
 			</div>
 			<div class="form-group">
-				<label for="endereco">Endereco</label>
-				<input type="text" name="endereco" id ="endereco" class="form-control"/> 
+				<label for="cep">CEP</label>
+				<input type="text" name="cep" id ="cep" class="form-control"/> 
+			</div>
+			<div class="form-group">
+				<label for="cidade">Cidade</label>
+				<input type="text" name="cidade" id ="cidade" class="form-control"/> 
+			</div>
+			<div class="form-group">
+				<label for="estado">Estado</label>
+				<input type="text" name="estado" id ="estado" class="form-control"/> 
+			</div>
+			<div class="form-group">
+				<label for="logradouro">Logradouro</label>
+				<input type="text" name="logradouro" id ="logradouro" class="form-control"/> 
+			</div>
+ 			 <div class="form-group">
+				<label for="numero">Numero da casa</label>
+				<input type="text" name="numero" id ="numero" class="form-control"/> 
 			</div>
 			<div class="form-group">
 				<label for="login">Login</label>
@@ -42,8 +58,7 @@
 			    </c:if>
  			</div>
 			<div class="form-group">	
-				<button type="submit" onclick="tamanho(event)" class="btn btn-primary">Salvar</button>
-				<a href="/imovel/index" class="btn btn-default">Listar Imoveis</a>
+				<button type="submit" class="btn btn-primary">Salvar</button>
 			</div>
 		</form>
 		</div>	

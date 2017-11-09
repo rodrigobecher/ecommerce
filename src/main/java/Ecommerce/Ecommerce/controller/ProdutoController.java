@@ -99,8 +99,8 @@ public class ProdutoController {
 	public ModelAndView editar(@PathVariable int id){
 		Produto produto = repository.buscaIdProduto(id);
 		ModelAndView mv = new ModelAndView("/manterProdutos");	
-		List<Restricao> rest = repository.buscaRestricao();
-		mv.addObject("restricao", new ArrayList<Restricao>(rest));
+		//List<Restricao> rest = repository.buscaRestricao();
+		//mv.addObject("restricao", new ArrayList<Restricao>(rest));
 		mv.addObject("produto", produto);
 		return mv;
 	}

@@ -27,14 +27,14 @@ public class PagamentoController {
 	@RequestMapping(value = "/finalizar", method = RequestMethod.POST)
 	public ModelAndView finalizar(RedirectAttributes model) {
 		
-		String uri = "https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=rodrigofbecher@gmail.com&token=3EB9ABF9E7CC4EA28057AC3A15ED522E";
-		String response = restTemplate.postForObject(uri, new DadosPagamento(), String.class);
+		//String uri = "https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=rodrigofbecher@gmail.com&token=3EB9ABF9E7CC4EA28057AC3A15ED522E";
+		//String response = restTemplate.postForObject(uri, new DadosPagamento(), String.class);
 		/*Gravar no banco.
 		Collection<CarrinhoItem> pedido = carrinho.getItens();
 		Double totalPedido = carrinho.getTotal();
 		repository.inserirItemPedido(pedido, totalPedido);
 		*/
-		System.out.println(response);
+		//System.out.println(response);
 		model.addFlashAttribute("mensagem", "Compra finalizada");
 		return new ModelAndView("redirect:/produto");
 	

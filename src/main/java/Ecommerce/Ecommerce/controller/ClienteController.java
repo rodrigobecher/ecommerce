@@ -24,22 +24,12 @@ public class ClienteController {
 		ModelAndView mv = new ModelAndView("/cliente");
 		return mv;
 	}
-	@PostMapping("/logar")
-	public String efetuaLogin(Usuario usuario, HttpSession session) {
-		
-		if(clienteRepository.validaUsuario(usuario)) {
-			
-			session.setAttribute("usuarioLogado", usuario);
-			return "menu";
-		}
-		ModelAndView mv = new ModelAndView("/cliente");
-		mv.addObject("usuario", usuario);
-		return "redirect:/login";
-	}
+	
 	@PostMapping
 	public ModelAndView cadastrarCliente(Cliente cliente, Usuario usuario) {
-		ModelAndView mv = new ModelAndView("/login");
-		clienteRepository.save(cliente, usuario);
+		ModelAndView mv = new ModelAndView("/cliente");
+		cliente.setUsuario(usuario);
+		clienteRepository.save(cliente);
 		return mv;
 	}
 }

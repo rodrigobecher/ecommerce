@@ -2,10 +2,17 @@ drop database ecommerce;
 create database ecommerce;
 use ecommerce;
 create table usuario(
-	login varchar(50) not null,
-    senha varchar (100) not null,
+	login varchar(60) not null,
+    senha varchar (300) not null,
     primary key(login)
 );
+create table permissoes(
+	permissoes varchar(500) not null,
+    login varchar(60) not null,
+    primary key(permissoes),
+    foreign key (login) references usuario(login) on delete cascade on update cascade
+);
+
 create table estado(
 	idEstado int not null auto_increment,
     descricaoEstado varchar(70) not null,
@@ -25,12 +32,12 @@ create table cliente(
     telefone varchar(20) not null,
     cpf varchar(11) not null,
     cep varchar (8) not null,
-    idCidade int not null,
+    Cidade varchar(50) not null,
+    Estado varchar(50) not null,
     logradouro varchar(100),
     numero int not null,
     login varchar(50) not null,
 	foreign key (login) references usuario(login) on delete cascade on update cascade,
-    foreign key (idCidade) references cidade(idCidade) on delete cascade on update cascade,
     primary key(idCliente)
 );
 
@@ -79,7 +86,7 @@ create table imagem(
     primary key(idFormaPagamento)
 ); */
 use ecommerce
-drop table pedido
+
 create table pedido(
 	idPedido int not null auto_increment,
     valorTotal double not null,
@@ -99,6 +106,21 @@ create table itemPedido(
     foreign key (idProduto) references produto(idProduto) on delete cascade on update cascade,
     primary key(idItemPedido)
 );
+
+
+select login, senha from usuario where login = 'rodrigo'
+select * from cliente
+truncate cliente
+truncate usuario
+insert into usuario (login, senha) values ('rodrigo', '$2a$10$g8x41tFLZTenQeGriW7bbu2yHLWCGQ94nKqDBuZyIIfJKbOJ2fXQK');
+insert into permissoes(permissoes, login) values ('ROLE_ADMIN','aline');
+truncate permissoes
+select permissoes, login from permissoes where login = 'rodrigo'
+
+insert into restricao(descricaoRestricao) values ('Sem Glutem');
+
+
+
 
 insert into restricao(descricaoRestricao) values ('Sem Glutem');
 insert into restricao(descricaoRestricao) values ('Sem Lactose');
@@ -128,8 +150,8 @@ insert into produto (produtoDescricao, quantidade, complemento, precoVenda) valu
  SET FOREIGN_KEY_CHECKS = 0;
 
 
-
-
+truncate usuario
+select * from cliente
 select produto.idProduto, produto.produtoDescricao, produto.complemento,  produto.precoVenda, restricao.idRestricao, restricao.descricaoRestricao from restricaoProduto
 inner join produto
 on produto.idProduto = restricaoProduto.idProduto

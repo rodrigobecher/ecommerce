@@ -14,9 +14,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript"
-	src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
-	</script>
+
 <title>Carrinho</title>
 </head>
 <body>
@@ -62,7 +60,7 @@
 		      	<tr>
 		      	<td>
 		      	<form action="pagamento/finalizar" method="post">
-		      		<input type="submit" onclick="PagSeguroLightbox('3EB9ABF9E7CC4EA28057AC3A15ED522E')" class="btn btn-success" name="checkout" value="FinalizarCompra">
+		      		<input type="submit"  class="btn btn-success" name="checkout" value="FinalizarCompra">
 		      	</form>
 		      	</td>
 		      	
@@ -79,8 +77,5 @@
 		  
 	 </section>
 	 
-	 <script src="ajax.js"></script>
-	 <script type="text/javascript"
-		src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
-	</script>
+	 <script src="resources/ajax.js"></script>
 </html>
