@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+
 import Ecommerce.Ecommerce.repository.UsuarioRepository;
 
 
@@ -23,15 +24,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/produto/cadastro").hasRole("ADMIN")
+		.antMatchers("/produto/**").permitAll()
+		.antMatchers("/resources/**").permitAll()
 		.antMatchers("/cliente/**").permitAll()
+		.antMatchers("/imagens/**").permitAll()
+		.antMatchers("/api/produto/**").permitAll()
+		.antMatchers("/carrinho/**").permitAll()
+		.antMatchers("/pag").permitAll()
+		.antMatchers("/login/**").permitAll()
 		.anyRequest().authenticated()
-		.and().formLogin();
-		
-		
+		.and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/pagamento/finalizar")
+		.and().logout().logoutSuccessUrl("/produto");
 	}
-	
-	
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(repository)

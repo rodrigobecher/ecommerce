@@ -40,19 +40,6 @@ function pegaProduto(id){
 			}
 		})
 	}
-function produto(){
-		window.location.href = "/produto";
-}
-function finalizaCompra(){
-	$.ajax({
-		url: '/pagamento/finalizar',
-		method: 'post',
-			success: function(result){
-				$("#login").html(result);
-			}
-	})
-}
-
 function adicionarCarrinho(quantidade){
 	var produtoId = $("#idProduto").val();
 	$.ajax({

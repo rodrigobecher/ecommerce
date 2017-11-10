@@ -7,29 +7,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="resources/css/bootstrap.css" />
+<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
 <title>Insert title here</title>
 </head>
 <body>
 	
 	<div class="container">
-	
-		<form action="cliente/logar"  method="post">
+		<H1>Login</H1>
+			<form action="/login" method="post">
 			<div class="form-group">
-				<label for="login">Login</label>
-				<input type="text" name="login" id ="login" class="form-control"/> 
-				<label for="senha">senha</label>
-				<input type="password" name="senha" id="senha" class="form-control"/>
-				<c:if test="${usuario.login != null}">
-			    	<h4>Usuario ou senha inválidos</h4>
-			    </c:if>
+				<label for="login">Entre</label>
+				<input type="text" name="username" /> 
+			</div>
+			<div class="form-group">
+				<label for="senha">Senha</label>
+				<input type="password" name="password" />
  			</div>
 			<div class="form-group">	
-				<button type="submit" class="btn btn-primary">Logar</button>
+				<button type="submit"  class="btn btn-primary">Entrar</button>
+				<a href="/cliente" class="btn btn-sucess">Cadastre-se</a>
+				
 			</div>
 		</form>
 		</div>	
 				
 	
-
+ <script src="resources/ajax.js"></script>
 </body>
 </html>

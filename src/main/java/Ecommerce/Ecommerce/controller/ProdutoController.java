@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.annotation.JsonFormat.Value;
 
 import Ecommerce.Ecommerce.model.Imagem;
 import Ecommerce.Ecommerce.model.Produto;

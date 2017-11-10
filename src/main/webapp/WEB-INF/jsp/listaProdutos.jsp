@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+        <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
@@ -16,8 +17,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
-<link rel="stylesheet" type="text/css" href="resources/estilos.css"/>
+<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="resources/css/bootstrap.css" />
+<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
+<script src="resources/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/estilos.css"/>
 <script src="resources/ajax.js"></script>
 </head>
 <title>Lista Produtos</title>
@@ -27,10 +31,38 @@
   <h1>Venda de Produtos</h1>
   <p>Compre agora!</p> 
 </div>	
-<nav class="navbar navbar-inverse bg-inverse">
-  <ul class="nav navbar-nav">
-      <li class="active"><a href="/produto/cadastro"  class="btn btn-primary">Novo</a><a href="/carrinho"  class="btn btn-primary">Carrinho (${carrinhoCompras.quantidade})</a></li>
-    </ul>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/produto">Sem Restricao</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      	<security:authorize access="hasRole('ROLE_ADMIN')">
+        <li><a href="/produto/cadastro">Cadastro de Produtos</a></li>
+        </security:authorize>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">  
+	        <li>
+	        	<form action="/login"  method="post" class="navbar-search">
+					<input type="text" name="username" placeholder="Usuario"/> 
+					<input type="password" name="password" placeholder="Senha"/>
+				<button type="submit" class="btn btn-primary">Logar</button>
+				<div id="Menssagem"></div>
+	    		</form>
+	    	</li>
+        	<li><a href="/cliente">Cadastre-se</a></li>
+        	<li><a href="/logout">Sair</a></li>
+      	</ul>
+      	
+    </div><!-- /.navbar-collapse -->
+  </div>
 </nav>
 <div id="listaProduto">
 <div class="container">
@@ -85,9 +117,10 @@
 										 <li>${produtoRest.descricaoRestricao }</li>
 									</c:forEach>
 								</ul>
+								<security:authorize access="hasRole('ROLE_ADMIN')">
 								<p><a href="produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
 								<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
-			       			    
+			       			    </security:authorize>
 			      		</div>
     			</div>
   			</div>

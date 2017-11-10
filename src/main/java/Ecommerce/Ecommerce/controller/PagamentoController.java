@@ -24,7 +24,7 @@ public class PagamentoController {
 	@Autowired
 	private RestTemplate restTemplate;
 		
-	@RequestMapping(value = "/finalizar", method = RequestMethod.POST)
+	@RequestMapping(value = "/finalizar", method = RequestMethod.GET)
 	public ModelAndView finalizar(RedirectAttributes model) {
 		
 		//String uri = "https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=rodrigofbecher@gmail.com&token=3EB9ABF9E7CC4EA28057AC3A15ED522E";

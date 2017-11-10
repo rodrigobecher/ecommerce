@@ -7,12 +7,13 @@ create table usuario(
     primary key(login)
 );
 create table permissoes(
+	idPermissoes int auto_increment not null,
 	permissoes varchar(500) not null,
     login varchar(60) not null,
-    primary key(permissoes),
+    primary key(idPermissoes),
     foreign key (login) references usuario(login) on delete cascade on update cascade
 );
-
+drop table permissoes
 create table estado(
 	idEstado int not null auto_increment,
     descricaoEstado varchar(70) not null,
@@ -107,7 +108,7 @@ create table itemPedido(
     primary key(idItemPedido)
 );
 
-
+use ecommerce
 select login, senha from usuario where login = 'rodrigo'
 select * from cliente
 truncate cliente

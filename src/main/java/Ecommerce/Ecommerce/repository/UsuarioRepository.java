@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import Ecommerce.Ecommerce.model.Role;
@@ -25,12 +26,17 @@ public class UsuarioRepository implements UserDetailsService{
 		
 	class UsuarioMapper implements org.springframework.jdbc.core.RowMapper<Usuario>{
 		@Override
-		public Usuario mapRow(ResultSet rs, int rowNumber) throws SQLException{
+		public Usuario mapRow(ResultSet rs, int rowNumber) throws SQLException {
 			Usuario usuario = new Usuario();
 			usuario.setLogin(rs.getString("login"));
 			usuario.setSenha(rs.getString("senha"));
 			usuario.setPermissoes(buscaPermissoes(usuario.getLogin()));
+			
+			if (usuario.equals(null)) {
+				throw new UsernameNotFoundException("Usuario" + usuario.getLogin() + "Não foi encontrado");
+			}
 			return usuario;
+		
 		}
 	}
 	public List<Role> buscaPermissoes(String login){
@@ -44,6 +50,7 @@ public class UsuarioRepository implements UserDetailsService{
 			Role role = new Role();
 			role.setNome(rs.getString("permissoes"));
 			return role;
+			
 		}
 	}
 }

@@ -28,8 +28,9 @@ public class ClienteController {
 	@PostMapping
 	public ModelAndView cadastrarCliente(Cliente cliente, Usuario usuario) {
 		ModelAndView mv = new ModelAndView("/cliente");
+		String permissoes = "ROLE_CLIENTE";
 		cliente.setUsuario(usuario);
-		clienteRepository.save(cliente);
+		clienteRepository.save(cliente, permissoes);
 		return mv;
 	}
 }
