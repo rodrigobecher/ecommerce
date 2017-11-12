@@ -13,7 +13,7 @@ create table permissoes(
     primary key(idPermissoes),
     foreign key (login) references usuario(login) on delete cascade on update cascade
 );
-drop table permissoes
+
 create table estado(
 	idEstado int not null auto_increment,
     descricaoEstado varchar(70) not null,
@@ -111,15 +111,15 @@ create table itemPedido(
 use ecommerce
 select login, senha from usuario where login = 'rodrigo'
 select * from cliente
-truncate cliente
-truncate usuario
+truncate cliente;
+truncate usuario;
 insert into usuario (login, senha) values ('rodrigo', '$2a$10$g8x41tFLZTenQeGriW7bbu2yHLWCGQ94nKqDBuZyIIfJKbOJ2fXQK');
 insert into permissoes(permissoes, login) values ('ROLE_ADMIN','aline');
 truncate permissoes
 select permissoes, login from permissoes where login = 'rodrigo'
 
 insert into restricao(descricaoRestricao) values ('Sem Glutem');
-
+s
 
 
 
