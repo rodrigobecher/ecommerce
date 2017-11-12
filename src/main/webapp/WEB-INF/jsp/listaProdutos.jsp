@@ -17,12 +17,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-<link rel="stylesheet" href="resources/css/bootstrap.css" />
-<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
-<script src="resources/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/css/estilos.css"/>
-<script src="resources/ajax.js"></script>
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/resources/css/bootstrap.css" />
+<link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css" />
+<script src="/resources/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/estilos.css"/>
+<script src="/resources/ajax.js"></script>
 </head>
 <title>Lista Produtos</title>
 </head>
@@ -48,16 +48,10 @@
         <li><a href="/produto/cadastro">Cadastro de Produtos</a></li>
         </security:authorize>
         </ul>
+        
         <ul class="nav navbar-nav navbar-right">  
-	        <li>
-	        	<form action="/login"  method="post" class="navbar-search">
-					<input type="text" name="username" placeholder="Usuario"/> 
-					<input type="password" name="password" placeholder="Senha"/>
-				<button type="submit" class="btn btn-primary">Logar</button>
-				<div id="Menssagem"></div>
-	    		</form>
-	    	</li>
-        	<li><a href="/cliente">Cadastre-se</a></li>
+        	<li><a href="/produto/itens"> Login ou cadastre-se</a></li>
+        	<li><a href="/carrinho">Seu Carrinho (${carrinhoCompras.getQuantidade()}) </a></li>
         	<li><a href="/logout">Sair</a></li>
       	</ul>
       	

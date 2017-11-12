@@ -1,5 +1,8 @@
 package Ecommerce.Ecommerce.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,9 +13,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LoginController {
 
 	@RequestMapping(value ="/login", method=RequestMethod.GET)
-	public String loginForm() {
-		return "loginForm";
+	public String loginForm(HttpServletRequest req) {
+		String url = req.getRequestURI();
+			return "loginForm";	
 	}
+		
 	@RequestMapping(value ="/pag", method=RequestMethod.GET)
 	public ModelAndView pag(RedirectAttributes model) {
 		ModelAndView mv = new ModelAndView("loginForm");

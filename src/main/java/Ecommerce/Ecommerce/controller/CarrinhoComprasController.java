@@ -29,11 +29,16 @@ public class CarrinhoComprasController {
 	private CarrinhoCompras carrinho;
 	
 	@GetMapping("/{produtoId}/{quantidade}")
-	public ModelAndView add(@PathVariable Integer produtoId, @PathVariable Integer quantidade) {
+	public ModelAndView itensCarrinho(@PathVariable Integer produtoId, @PathVariable Integer quantidade) {
 	
 	ModelAndView mv = new ModelAndView("redirect:/carrinho");
 	CarrinhoItem carrinhoItem = criaItem(produtoId, quantidade);
 	carrinho.add(carrinhoItem, quantidade);
+	return mv;
+	}
+	@GetMapping("/carrinhoLogin")
+	public ModelAndView itensCarrinhoLogin() {
+	ModelAndView mv = new ModelAndView("redirect:/carrinho");
 	return mv;
 	}
 	@RequestMapping(method=RequestMethod.GET)

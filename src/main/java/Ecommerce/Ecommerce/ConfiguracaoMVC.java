@@ -14,7 +14,7 @@ public class ConfiguracaoMVC extends WebMvcConfigurerAdapter{
 		@Override
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
 			registry.addResourceHandler("imagens/*.jpg").addResourceLocations("file:///Users/rodrigo/Pictures/imagens/");
-						
+			registry.addResourceHandler("produto/imagens/*.jpg").addResourceLocations("file:///Users/rodrigo/Pictures/imagens/");			
 		}
 		@Bean
 		public InternalResourceViewResolver internalResourceViewResolver() {

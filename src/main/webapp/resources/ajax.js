@@ -40,18 +40,7 @@ function pegaProduto(id){
 			}
 		})
 	}
-function produto(){
-		window.location.href = "/produto";
-}
-function finalizaCompra(){
-	$.ajax({
-		url: '/pagamento/finalizar',
-		method: 'post',
-			success: function(result){
-				$("#login").html(result);
-			}
-	})
-}
+
 
 function adicionarCarrinho(quantidade){
 	var produtoId = $("#idProduto").val();
@@ -68,6 +57,17 @@ function adicionarCarrinho(quantidade){
 			$("#mensagem").html(result.responseText);
 		}
 	})
+}
+function buscaCep(){
+	var cep = $('#cep').val();
+	$.ajax({
+		url : '//viacep.com.br/ws/'+ cep +'/json/',
+		success: function(result) {
+			$("#cidade").val(result.localidade);
+			$("#estado").val(result.uf);
+			$("#logradouro").val(result.logradouro);		
+		}
+	});
 }
 function validaQuantidade(event){
 	var quantidade = parseInt($("#quantidade").val());

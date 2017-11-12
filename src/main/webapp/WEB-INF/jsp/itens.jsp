@@ -17,12 +17,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-<link rel="stylesheet" href="resources/css/bootstrap.css" />
-<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
-<script src="resources/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/css/estilos.css"/>
-<script src="resources/ajax.js"></script>
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/resources/css/bootstrap.css" />
+<link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css" />
+<script src="/resources/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/estilos.css"/>
+<script src="/resources/ajax.js"></script>
 
 <title>Carrinho</title>
 </head>
@@ -48,38 +48,13 @@
         </security:authorize>
         </ul>
         <ul class="nav navbar-nav navbar-right">  
-	        <li>
-	        	<form action="/login"  method="post" class="navbar-search">
-					<input type="text" name="username" placeholder="Usuario"/> 
-					<input type="password" name="password" placeholder="Senha"/>
-				<button type="submit" class="btn btn-primary">Logar</button>
-				<div id="Menssagem"></div>
-	    		</form>
-	    	</li>
-        	<li><a href="/cliente">Cadastre-se</a></li>     	
+        	<li><a href="/carrinho/carrinhoLogin">Login ou cadastre-se</a></li>	
         	<li><a href="/logout">Logout</a></li>
       	</ul>
       	
     </div><!-- /.navbar-collapse -->
   </div>
 </nav>
-<div class="modal fade" id="modalLogin" role="dialog" >
-	  	<div class="modal-dialog"  >  
-	      <!-- Modal content-->	     
-		        <div class="modal-header" >
-		          <button type="button" class="close" onclick="limpaModal()" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Login</h4>
-		        </div>
-		        <div class="modal-body">
-		      
-		      	  <div  id="login"></div>
-		        
-		        </div>
-		        <div class="modal-footer" >
-		         	 <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
-		        </div>
-		      </div>    
-	      </div> 
 	 
 	<section class="container">
 		<table class="table table-bordered" id="cart-table">
@@ -113,15 +88,11 @@
 		      <tfoot>
 		      	<tr>
 		      	<td>
-		      	<security:authorize access="isAuthenticated()">
-				<form action="/pagamento/finalizar" method="get">
+		      	
+		      	<form action="/pagamento/finalizar" method="get">
 				<button type="submit"  class="btn btn-success" >Finalizar Compra</button>
 				</form>
-				<security:authentication property="principal" var="usuario"/>								
-			    </security:authorize>
-		      	<c:if test="${usuario.username == null }">
-		      	<button type="submit" onclick="finalizaCompra()"  class="btn btn-success"  data-toggle="modal" data-target="#modalLogin">Finalizar Compra</button>
-				</c:if>
+				
 		      	</td>  
 		      		<td></td>
 		      		<td></td>
