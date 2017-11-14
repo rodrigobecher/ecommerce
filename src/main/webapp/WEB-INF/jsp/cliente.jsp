@@ -60,6 +60,24 @@
 				<label for="sobrenome">Sobrenome</label>
 				<input type="text" name="sobreNome" id="sobreNome" class="form-control" required>
 			</div>
+			<div class="form-group">			
+					<c:forEach items="${restricao}" var="restricao">
+						<c:set var="contains" value="false" />
+						<c:forEach items="${cliente.restricoes}" var="restricaoProduto">
+							<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
+								<c:set var="contains" value="true"/>
+							</c:if>
+						</c:forEach>	
+						
+						<div class="checkbox">
+							<input name="restricao"  type="checkbox" value="${restricao.idRestricao}"
+								<c:if test="${contains eq true}">
+									checked
+								</c:if>
+							>${restricao.descricaoRestricao}</input>	
+						</div>			
+					</c:forEach>
+			</div>
 			<div class="form-group">
 				<label for="telefone">Telefone</label>
 				<input type="tel" name="telefone" id="telefone" class="form-control" required>

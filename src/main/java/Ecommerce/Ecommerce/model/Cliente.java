@@ -1,6 +1,6 @@
 package Ecommerce.Ecommerce.model;
 
-
+import java.util.List;
 
 public class Cliente {
 	
@@ -16,9 +16,25 @@ public class Cliente {
 	private String estado;
 	private String logradouro;
 	private int numero;
+	private List<Restricao> restricoes;
+	private int[] restricao;
 	
 	
-	
+	public int[] getRestricaoTamanho() {
+		return restricao;
+	}
+	public List<Restricao> getRestricoes() {
+		return restricoes;
+	}
+	public void setRestricoes(List<Restricao> restricoes) {
+		this.restricoes = restricoes;
+	}
+	public int getRestricao(int i) {
+		return restricao[i];
+	}
+	public void setRestricao(int[] restricao) {
+		this.restricao = restricao;
+	}
 	public String getCep() {
 		return cep;
 	}

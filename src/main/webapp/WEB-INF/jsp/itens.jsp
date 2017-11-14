@@ -48,8 +48,15 @@
         </security:authorize>
         </ul>
         <ul class="nav navbar-nav navbar-right">  
+        	<security:authorize access="isAuthenticated()" var="autenticado">
+        		<security:authentication property="principal" var="usuario"/>
+        		<li><a href="#">Olá ${usuario.username }</a></li>
+        	</security:authorize>
+        	<c:if test="${usuario == null}">				
         	<li><a href="/carrinho/carrinhoLogin">Login ou cadastre-se</a></li>	
-        	<li><a href="/logout">Logout</a></li>
+        	</c:if>
+        	
+        	<li><a href="/logout">Sair</a></li>
       	</ul>
       	
     </div><!-- /.navbar-collapse -->

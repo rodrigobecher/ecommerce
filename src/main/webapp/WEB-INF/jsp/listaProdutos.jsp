@@ -49,8 +49,15 @@
         </security:authorize>
         </ul>
         
-        <ul class="nav navbar-nav navbar-right">  
+        <ul class="nav navbar-nav navbar-right"> 
+       
+        	<security:authorize access="isAuthenticated()" var="autenticado">
+        		<security:authentication property="principal" var="usuario"/>
+        		<li><a href="#">Olá ${usuario.username }</a></li>
+        	</security:authorize>
+        	<c:if test="${usuario == null}">				
         	<li><a href="/produto/itens"> Login ou cadastre-se</a></li>
+        	</c:if>
         	<li><a href="/carrinho">Seu Carrinho (${carrinhoCompras.getQuantidade()}) </a></li>
         	<li><a href="/logout">Sair</a></li>
       	</ul>
