@@ -32,7 +32,7 @@ margin: 2px 3px 5px 3px;
     margin: 0 auto;
 }
 #login h1 {
-    color: #1fa67b;
+    color: #89bb49;
     font-size: 18px;
     text-align: center;
     font-weight: bold;
@@ -83,6 +83,154 @@ margin: 2px 3px 5px 3px;
 	display: block;
 }
 
+.navbar {
+    background-color: #89bb49;
+  }
+  .navbar .navbar-brand {
+    color: #f9f9f9;
+  }
+  .navbar .navbar-brand:hover,
+  .navbar .navbar-brand:focus {
+    color: #898989;
+  }
+  .navbar .navbar-text {
+    color: #f9f9f9;
+  }
+  .navbar .navbar-nav .nav-link {
+    color: #f9f9f9;
+    border-radius: .25rem;
+    margin: 0 0.25em;
+  }
+  .navbar .navbar-nav .nav-link:not(.disabled):hover,
+  .navbar .navbar-nav .nav-link:not(.disabled):focus {
+    color: #898989;
+  }
+  .navbar .navbar-nav .dropdown-menu {
+    background-color: #89bb49;
+    border-color: #f0f0ed;
+  }
+  .navbar .navbar-nav .dropdown-menu .dropdown-item {
+    color: #f9f9f9;
+  }
+  .navbar .navbar-nav .dropdown-menu .dropdown-item:hover,
+  .navbar .navbar-nav .dropdown-menu .dropdown-item:focus,
+  .navbar .navbar-nav .dropdown-menu .dropdown-item.active {
+    color: #898989;
+    background-color: #f0f0ed;
+  }
+  .navbar .navbar-nav .dropdown-menu .dropdown-divider {
+    border-top-color: #f0f0ed;
+  }
+  .navbar .navbar-nav .nav-item.active .nav-link,
+  .navbar .navbar-nav .nav-item.active .nav-link:hover,
+  .navbar .navbar-nav .nav-item.active .nav-link:focus,
+  .navbar .navbar-nav .nav-item.show .nav-link,
+  .navbar .navbar-nav .nav-item.show .nav-link:hover,
+  .navbar .navbar-nav .nav-item.show .nav-link:focus {
+    color: #898989;
+    background-color: #f0f0ed;
+  }
+  .navbar .navbar-toggle {
+    border-color: #f0f0ed;
+  }
+  .navbar .navbar-toggle:hover,
+  .navbar .navbar-toggle:focus {
+    background-color: #f0f0ed;
+  }
+  .navbar .navbar-toggle .navbar-toggler-icon {
+    color: #f9f9f9;
+  }
+  .navbar .navbar-collapse,
+  .navbar .navbar-form {
+    border-color: #f9f9f9;
+  }
+  .navbar .navbar-link {
+    color: #f9f9f9;
+  }
+  .navbar .navbar-link:hover {
+    color: #898989;
+  }
+  
+  @media (max-width: 575px) {
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #f9f9f9;
+    }
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #898989;
+    }
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #898989;
+      background-color: #f0f0ed;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #f9f9f9;
+    }
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #898989;
+    }
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #898989;
+      background-color: #f0f0ed;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #f9f9f9;
+    }
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #898989;
+    }
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #898989;
+      background-color: #f0f0ed;
+    }
+  }
+  
+  @media (max-width: 1199px) {
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #f9f9f9;
+    }
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #898989;
+    }
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #898989;
+      background-color: #f0f0ed;
+    }
+  }
+  
+  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #f9f9f9;
+  }
+  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #898989;
+  }
+  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #898989;
+    background-color: #f0f0ed;
+  }
+
+.card {
+    margin-top: -20px;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+#teste {
+	/* background-image: url(http://www.ezyhealth.com/magazine/wp-content/uploads/2015/03/iStock_000046272610_Large.jpg); */
+   /* background-color: #bfebb6 */
+   /* background-color: #6fca7a */
+}
+
 /*    --------------------------------------------------
 	:: Inputs & Buttons
 	-------------------------------------------------- */
@@ -91,7 +239,7 @@ margin: 2px 3px 5px 3px;
 }
 .btn-custom {
     color: #fff;
-	background-color: #1fa67b;
+	background-color: #89bb49;
 }
 .btn-custom:hover,
 .btn-custom:focus {
