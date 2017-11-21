@@ -39,6 +39,8 @@ public class ProdutoController {
 		ModelAndView mv = new ModelAndView("/listaProdutos");
 		List<Produto> list = repository.buscaPaginas(valor);
 		mv.addObject("listaProduto", new ArrayList<Produto>(list));
+		List<Restricao> restricao = repository.buscaRestricao();
+		mv.addObject("restricao", new ArrayList<Restricao>(restricao));
 		return mv;
 	}
 	@RequestMapping(value ="/itens", method=RequestMethod.GET)
