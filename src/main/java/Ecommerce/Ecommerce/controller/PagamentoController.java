@@ -1,7 +1,12 @@
 package Ecommerce.Ecommerce.controller;
 
 import java.util.Collection;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,8 +30,8 @@ public class PagamentoController {
 	private RestTemplate restTemplate;
 		
 	@RequestMapping(value = "/finalizar", method = RequestMethod.GET)
-	public ModelAndView finalizar(RedirectAttributes model) {
-		
+	public ModelAndView finalizar(RedirectAttributes model, HttpSession session, HttpServletRequest request) {
+		String usuario = request.getUserPrincipal().getName();
 		//String uri = "https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=rodrigofbecher@gmail.com&token=3EB9ABF9E7CC4EA28057AC3A15ED522E";
 		//String response = restTemplate.postForObject(uri, new DadosPagamento(), String.class);
 		/*Gravar no banco.
@@ -35,8 +40,10 @@ public class PagamentoController {
 		repository.inserirItemPedido(pedido, totalPedido);
 		*/
 		//System.out.println(response);
+		session.invalidate();
 		model.addFlashAttribute("mensagem", "Compra finalizada");
 		return new ModelAndView("redirect:/produto");
+		
 	
 	}
 

@@ -22,15 +22,39 @@
 <link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css" />
 <script src="/resources/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/estilos.css"/>
+
 <script src="/resources/ajax.js"></script>
 </head>
 <title>Lista Produtos</title>
 </head>
 <body onload="paginacao()">
+ <div class="container">
+<div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
+          <div class="list-group">
+           		<c:forEach items="${restricao}" var="restricao">
+						<c:set var="contains" value="false" />
+						<c:forEach items="${cliente.restricoes}" var="restricaoProduto">
+							<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
+								<c:set var="contains" value="true"/>
+							</c:if>
+						</c:forEach>	
+						
+						<div class="checkbox">
+							<input name="restricao"  type="checkbox" value="${restricao.idRestricao}"
+								<c:if test="${contains eq true}">
+									checked
+								</c:if>
+							>${restricao.descricaoRestricao}</input>	
+						</div>			
+			</c:forEach>
+          </div>
+        </div><!--/span-->
+        </div>
 <div class="jumbotron text-center">
   <h1>Venda de Produtos</h1>
   <p>Compre agora!</p> 
 </div>	
+
 <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
@@ -64,7 +88,9 @@
       	
     </div><!-- /.navbar-collapse -->
   </div>
+  
 </nav>
+
 <div id="listaProduto">
 <div class="container">
 	<div class="container">	
@@ -94,6 +120,7 @@
 	      </div> 
 	  </div>
 	</div>
+		
 		<div> ${mensagem}</div>
 		<div class="row">
 			<c:forEach items="${listaProduto}" var="produto"  >
