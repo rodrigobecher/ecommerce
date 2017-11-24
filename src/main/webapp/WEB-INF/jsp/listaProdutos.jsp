@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <!DOCTYPE html>
 <html>
@@ -138,7 +139,10 @@
 								<p>Complemento: ${produto.complemento}</p>
 								<p>Quantidade Estoque: ${produto.quantidade }</p>
 								<h4>Restrições</h4>
-								<p>Preço unitário: ${produto.precoVenda }</p>
+								<p> Preço unitário:
+								<fmt:setLocale value="pt_br"/>
+       								  <fmt:formatNumber value = "${produto.precoVenda }" type = "currency"/>
+								</p>						
 								<h4>Restrições</h4>
 								<ul> 
 									<c:forEach items="${produto.restricoes}" var="produtoRest" >
@@ -146,7 +150,7 @@
 									</c:forEach>
 								</ul>
 								<security:authorize access="hasRole('ROLE_ADMIN')">
-								<p><a href="produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
+								<p><a href="/produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
 								<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
 			       			    </security:authorize>
 			      		</div>

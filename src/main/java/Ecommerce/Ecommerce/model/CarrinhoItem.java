@@ -1,6 +1,7 @@
 package Ecommerce.Ecommerce.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class CarrinhoItem implements Serializable{
 
@@ -62,8 +63,8 @@ public class CarrinhoItem implements Serializable{
 		return true;
 	}
 
-	public double getTotal(int quantidade) {
-		return this.getProduto().getPrecoVenda() * quantidade;
+	public BigDecimal getTotal(int quantidade) {
+		return this.getProduto().getPrecoVenda().multiply(BigDecimal.valueOf(quantidade));
 		
 	}
 

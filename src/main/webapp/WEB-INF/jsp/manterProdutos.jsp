@@ -47,14 +47,14 @@
 			</div>
 			<div class="form-group">
 				<label for="precoVenda">Preço de Venda</label>
-				<input type="number" value="${produto.precoVenda }" name="precoVenda" id ="precoVenda" class="form-control"/> 
+				<input type="number" step="0.02" value="${produto.precoVenda }" name="precoVenda" id ="precoVenda" class="form-control"/> 
 			</div>
 			<div class="form-group">
 				<label for="foto">Imagem</label>
 				<input type="file" name="foto"id ="foto"/> 
 			</div>
-			<c:if test="${imagem.idImagem > 0 }">
-				<input type="hidden" name="codigo" value="${produto.imagem.idImagem}"/>
+			<c:if test="${produto.imagem.idImagem > 0 }">
+				<input type="hidden" name="codigo" value="${produto.idProduto}"/>
 				<input type="hidden" name="idProduto" value="${produto.idProduto }"/>
 			</c:if>
 			<input type="hidden" name="codigo" value="0"/>

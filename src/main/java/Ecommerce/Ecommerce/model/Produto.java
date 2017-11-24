@@ -1,12 +1,13 @@
 package Ecommerce.Ecommerce.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Produto {
 	private int idProduto;
 	private String descricao;
 	private String complemento;
-	private double precoVenda;
+	private BigDecimal precoVenda;
 	private int[] restricao;
 	private int quantidade;
 	private Imagem imagem;
@@ -71,10 +72,10 @@ public class Produto {
 		this.quantidade = quantidade;
 	}
 	
-	public double getPrecoVenda() {
+	public BigDecimal getPrecoVenda() {
 		return precoVenda;
 	}
-	public void setPrecoVenda(double precoVenda) {
+	public void setPrecoVenda(BigDecimal precoVenda) {
 		this.precoVenda = precoVenda;
 	}
 	@Override

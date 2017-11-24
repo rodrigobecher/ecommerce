@@ -2,6 +2,7 @@ package Ecommerce.Ecommerce.repository;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -96,7 +97,7 @@ public class ProdutoRepository {
 					produto.setQuantidade(rs.getInt("quantidade"));
 					produto.setIdProduto(rs.getInt("idProduto"));
 					produto.setComplemento(rs.getString("complemento"));
-					produto.setPrecoVenda(rs.getDouble("precoVenda"));
+					produto.setPrecoVenda(new BigDecimal(rs.getDouble("precoVenda")));
 					produto.setPaginas(quantidadeRegistros());
 					produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));
 					produto.setImagem(img);
@@ -128,7 +129,7 @@ public class ProdutoRepository {
 					produto.setQuantidade(rs.getInt("quantidade"));
 					produto.setIdProduto(rs.getInt("idProduto"));
 					produto.setComplemento(rs.getString("complemento"));
-					produto.setPrecoVenda(rs.getDouble("precoVenda"));
+					produto.setPrecoVenda(new BigDecimal(rs.getDouble("precoVenda")));
 					produto.setPaginas(quantidadeRegistros());
 					produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));	
 					produto.setImagem(img); 
@@ -204,7 +205,7 @@ public class ProdutoRepository {
 				ps.setString(1, produto.getDescricao());
 				ps.setInt(2, produto.getQuantidade());
 				ps.setString(3, produto.getComplemento());
-				ps.setDouble(4, produto.getPrecoVenda());
+				ps.setBigDecimal(4, produto.getPrecoVenda());
 				return ps;
 			}
 					
@@ -228,7 +229,7 @@ public class ProdutoRepository {
 			produto.setQuantidade(rs.getInt("quantidade"));
 			produto.setIdProduto(rs.getInt("idProduto"));
 			produto.setComplemento(rs.getString("complemento"));
-			produto.setPrecoVenda(rs.getDouble("precoVenda"));
+			produto.setPrecoVenda(new BigDecimal(rs.getDouble("precoVenda")));
 			produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));
 			produto.setImagem(img);
 			return produto;

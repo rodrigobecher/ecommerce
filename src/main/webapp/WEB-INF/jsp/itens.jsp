@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
  <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <!DOCTYPE html>
 <html>
@@ -80,10 +81,17 @@
 			     <tr>     	
 			          <td class="card"><img src="imagens/${item.produto.imagem.descricao }" width="130px" height="100px"/></td>
 			          <td class="item-title">${item.produto.descricao }</td>
-			          <td class="money">${item.produto.precoVenda }</td>
+			          
+			          <td class="money">
+								<fmt:setLocale value="pt_br"/>
+       								  <fmt:formatNumber value = "${item.produto.precoVenda}" type = "currency"/>
+									 </td>
 			          <td class="quantity-input-cell">
-			          <input type="number" min="0" readonly="readonly" id="quantidade" name="quantidade" value="${carrinhoCompras.getQuantidade(item) }"/></td>
-			          <td class="numeric-cell">${carrinhoCompras.getTotal(item) }</td>
+			          <input type="number" min="0" style="width: 25px" readonly="readonly" id="quantidade" name="quantidade" value="${carrinhoCompras.getQuantidade(item) }"/></td>
+			          <td class="numeric-cell">
+			          <fmt:setLocale value="pt_br"/>
+       								  <fmt:formatNumber value = "${carrinhoCompras.getTotal(item)}" type = "currency"/>
+			           </td>
 			          <td class="remove-item">
 			          	<form action="carrinho/excluir/${item.produto.idProduto}/${carrinhoCompras.getQuantidade(item)}" method="post">
 			          		<input type="submit" class="btn btn-danger" value="Excluir" title="Excluir" />
@@ -99,18 +107,13 @@
 		      	<form action="/pagamento/finalizar" method="get">
 				<button type="submit"  class="btn btn-success" >Finalizar Compra</button>
 				</form>
-				<form action="https://pagseguro.uol.com.br/checkout/v2/payment.html" method="post" onsubmit="PagSeguroLightbox(this); return false;">
-					<!-- NÃO EDITE OS COMANDOS DAS LINHAS ABAIXO -->
-					<input type="hidden" name="code" value="02F307FD737319B884236F8553EBF734" />
-					<input type="hidden" name="iot" value="button" />
-					<input type="image" src="https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
-					</form>
-					<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+				
 		      	</td>  
 		      		<td></td>
 		      		<td></td>
 		      		<td></td>
-		      		<td class="numeric-cell">${carrinhoCompras.total}</td>
+		      		<td class="numeric-cell"><fmt:setLocale value="pt_br"/>
+       								  <fmt:formatNumber value = "${carrinhoCompras.total}" type = "currency"/></td>
 		      		<td></td>
 		      	</tr>
 		      </tfoot>
