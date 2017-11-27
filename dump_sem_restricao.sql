@@ -86,15 +86,13 @@ create table imagem(
     descricaoPagamento varchar(60) not null,
     primary key(idFormaPagamento)
 ); */
-use ecommerce
+
 
 create table pedido(
 	idPedido int not null auto_increment,
     valorTotal double not null,
-   -- idCliente int not null,
-    -- idFormaPagamento int not null,
-   -- foreign key (idCliente) references cliente(idCliente) on delete cascade on update cascade,
-    -- foreign key (idFormaPagamento) references formaPagamento(idFormaPagamento) on delete cascade on update cascade,
+	idCliente int not null,
+	foreign key (idCliente) references cliente(idCliente) on delete cascade on update cascade,
     primary key(idPedido)
 );
 
@@ -120,9 +118,6 @@ truncate permissoes
 select permissoes, login from permissoes where login = 'rodrigo'
 
 insert into restricao(descricaoRestricao) values ('Sem Glutem');
-s
-
-
 
 insert into restricao(descricaoRestricao) values ('Sem Glutem');
 insert into restricao(descricaoRestricao) values ('Sem Lactose');
@@ -151,6 +146,8 @@ insert into produto (produtoDescricao, quantidade, complemento, precoVenda) valu
  */
  SET FOREIGN_KEY_CHECKS = 0;
 
+select idCliente, nome, sobreNome, telefone, cpf, cep, Cidade, Estado, logradouro, numero, login from cliente
+where login = 'rodrigo' 
 
 truncate usuario
 select * from cliente
@@ -168,3 +165,7 @@ on restricao.idRestricao = restricaoProduto.idRestricao
 where idProduto = 15
 
 update restricaoProduto set idRestricao = 2 where idProduto = 9
+
+update cliente set telefone = 33392988 where idCliente =1
+update produto set precoVenda = '2.50' where idProduto = 47
+select * from produto

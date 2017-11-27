@@ -278,7 +278,10 @@
 								<p>Complemento: ${produto.complemento}</p>
 								<p>Quantidade Estoque: ${produto.quantidade }</p>
 								<h4>Restrições</h4>
-								<p>Preço unitário: ${produto.precoVenda }</p>
+								<p> Preço unitário:
+								<fmt:setLocale value="pt_br"/>
+       								  <fmt:formatNumber value = "${produto.precoVenda }" type = "currency"/>
+								</p>						
 								<h4>Restrições</h4>
 								<ul> 
 									<c:forEach items="${produto.restricoes}" var="produtoRest" >
@@ -286,10 +289,17 @@
 									</c:forEach>
 								</ul>
 								<security:authorize access="hasRole('ROLE_ADMIN')">
+<<<<<<< HEAD
 									<p><a href="produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
 									<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
 								</security:authorize>
 						</div>
+=======
+								<p><a href="/produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
+								<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
+			       			    </security:authorize>
+			      		</div>
+>>>>>>> f4f84273d1d9f4a5fbfec72821f8c898f2400b39
     			</div>
   			</div>
  	 		</c:forEach>

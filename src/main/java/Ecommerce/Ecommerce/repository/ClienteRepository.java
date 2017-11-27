@@ -2,6 +2,7 @@ package Ecommerce.Ecommerce.repository;
 
 
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -13,7 +14,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 import Ecommerce.Ecommerce.model.Cliente;
+import Ecommerce.Ecommerce.model.Imagem;
 import Ecommerce.Ecommerce.model.Produto;
+import Ecommerce.Ecommerce.repository.ProdutoRepository.ProdutoMapper;
 
 @Repository
 public class ClienteRepository {
@@ -73,6 +76,29 @@ public class ClienteRepository {
 				cliente.getUsuario().getLogin());
 	}
 	
+	public Cliente buscaCliente(String nome){
+		return jdbc.queryForObject("select idCliente, nome, sobreNome, telefone, cpf, cep, Cidade, Estado, logradouro, numero, login from cliente " + 
+				"where login = ? ", new Object[] {nome}, new ClienteMapper());		
+	}
+	
+	class ClienteMapper implements org.springframework.jdbc.core.RowMapper<Cliente>{
+		@Override
+		public Cliente mapRow(ResultSet rs, int rowNumber) throws SQLException{
+			Cliente cliente = new Cliente();
+			cliente.setIdCliente(rs.getInt("idCliente"));
+			cliente.setNome(rs.getString("nome"));
+			cliente.setSobreNome(rs.getString("sobreNome"));
+			cliente.setTelefone(rs.getString("telefone"));
+			cliente.setCpf(rs.getString("cpf"));
+			cliente.setCep(rs.getString("cep"));
+			cliente.setCidade(rs.getString("Cidade"));
+			cliente.setEstado(rs.getString("Estado"));
+			cliente.setLogradouro(rs.getString("logradouro"));
+			cliente.setNumero(rs.getInt("numero"));
+			
+			return cliente;
+		}
+	}
 	
 }
 

@@ -35,14 +35,14 @@ public class CarrinhoCompras implements Serializable{
 		return itens.values().stream().reduce(0, (proximo, acumulador) -> proximo + acumulador);
 	}
 	
-	public double getTotal(CarrinhoItem item){
+	public BigDecimal getTotal(CarrinhoItem item){
 		return item.getTotal(getQuantidade(item));
 	}
 	
-	public double getTotal() {
-		double total = 0;
+	public BigDecimal getTotal() {
+		BigDecimal total = new BigDecimal(0);
 		for (CarrinhoItem item : itens.keySet()) {
-			total = total + getTotal(item);
+			total = total.add(getTotal(item));
 		}
 		return total;
 	}
