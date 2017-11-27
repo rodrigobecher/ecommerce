@@ -9,10 +9,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="resources/css/bootstrap.min.css" /> -->
 <link rel="stylesheet" type="text/css" href="resources/css/estilos.css"/>
-<link rel="stylesheet" href="resources/css/bootstrap.css" />
-<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css"/>
+<!-- <link rel="stylesheet" href="resources/css/bootstrap.css" />
+<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css"/> -->
 <script src="/resources/ajax.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -78,7 +78,7 @@
 					</div>
 				</li>
 				<security:authorize access="hasRole('ROLE_ADMIN')">
-						<li><a href="/produto/cadastro">Cadastro de Produtos</a></li>
+						<li><a class="nav-link" href="/produto/cadastro">Cadastro de Produtos</a></li>
 				</security:authorize>
 				<security:authorize access="isAuthenticated()" var="autenticado">
 						<security:authentication property="principal" var="usuario"/>
@@ -95,79 +95,81 @@
 	    </div>
 	</nav>
 </div>
-<div class="container">
-		<div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
+<div class="box" id="checkboxrestricao">
+	<div class="card">
+		<div class="card-body">
 				<div class="list-group">
-						<c:forEach items="${restricao}" var="restricao">
-								<c:set var="contains" value="false" />
-									<c:forEach items="${cliente.restricoes}" var="restricaoProduto">
-										<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
-										<c:set var="contains" value="true"/>
+					<c:forEach items="${restricao}" var="restricao">
+						<c:set var="contains" value="false" />
+							<c:forEach items="${cliente.restricoes}" var="restricaoProduto">											<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
+									<c:set var="contains" value="true"/>
 									</c:if>
-								</c:forEach>	
-								
+							</c:forEach>	
 								<div class="checkbox">
 									<input name="restricao"  type="checkbox" value="${restricao.idRestricao}"
 										<c:if test="${contains eq true}">
 											checked
 										</c:if>
-										>${restricao.descricaoRestricao}</input>	
+											>${restricao.descricaoRestricao}</input>	
 								</div>			
-					</c:forEach>
-			</div>
-		</div><!--/span-->
-	 </div>
-<div class="card">
-    <div class="card-body">
-				<div> ${mensagem}</div>
-					<div class="card">
-							<c:forEach items="${listaProduto}" var="produto"  >
-								<div class="card-body">
-									<div class="thumbnail">
-											<a href="#" onclick="pegaProduto(${produto.imagem.idImagem})" data-toggle="modal" data-target="#myModal" title="Detalhes">
-												<c:if test="${produto.imagem.descricao != null }">
-													<img class="img-responsive" src="imagens/${produto.imagem.descricao }" alt="imagem do Produto" width="300px" height="450px" > 	
-											</c:if>
-										</a>
-										<div class="caption">
-											<input type="hidden" id="pagina" value="${produto.paginas}">
-												<p>Descrição: ${produto.descricao}</p>
-												<p>Complemento: ${produto.complemento}</p>
-												<p>Quantidade Estoque: ${produto.quantidade }</p>
-												<h4>Restrições</h4>
-												<p>Preço unitário: ${produto.precoVenda }</p>
-												<h4>Restrições</h4>
-												<ul> 
-													<c:forEach items="${produto.restricoes}" var="produtoRest" >
-														<li>${produtoRest.descricaoRestricao }</li>
-													</c:forEach>
-												</ul>
-												<security:authorize access="hasRole('ROLE_ADMIN')">
-													<p><a href="produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
-													<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
-												</security:authorize>
-										</div>
-									</div>
-								</div>
-							</c:forEach>
+						</c:forEach>	
 					</div>
-    </div>
+			</div>
+		</div>
 </div>
-<footer id="footer">
-		<div class="container">
-				<div class="row">
-						<div class="col-xs-12">
-								<p>Page © - 2017</p>
-								<p>Powered by <strong>Sem Restrição</strong></p>
+		<div> ${mensagem}</div>
+<div class="box">
+		<div class="card">
+			<div class="card-body" id="exibicaoprodutos" >
+				<c:forEach items="${listaProduto}" var="produto"  >
+					<div class="card" style="width: 15rem;" >
+						<a href="#" onclick="pegaProduto(${produto.imagem.idImagem})" data-toggle="modal" data-target="#myModal" title="Detalhes">
+							<c:if test="${produto.imagem.descricao != null }">
+									<img class="card-img-top" src="imagens/${produto.imagem.descricao }" alt="imagem do Produto">					
+							</c:if>
+						</a>
+						<div class="card-body" id="cardbodyproduto">
+							<input type="hidden" id="pagina" value="${produto.paginas}">
+							<h4 class="card-title"> ${produto.descricao}</h4>
+							<p class="card-text"> ${produto.complemento}</p>
+							<h2><span class="badge badge-success">R$ ${produto.precoVenda }</span></h2>
+							<h4>Restrições</h4>
+							<ul> 
+							<c:forEach items="${produto.restricoes}" var="produtoRest" >
+								<li>${produtoRest.descricaoRestricao }</li>
+							</c:forEach>
+							</ul>
+							<p class="card-text">Quantidade Estoque: ${produto.quantidade }</p>
+							<security:authorize access="hasRole('ROLE_ADMIN')">
+								<p><a href="produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
+								<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
+							</security:authorize>
 						</div>
+					</div>
+				</c:forEach>		
 				</div>
 		</div>
-</footer>
+</div>		
+<div>
+	<footer id="footer">
+			<div class="container">
+					<div class="row">
+							<div class="col-xs-12">
+									<p>Page © - 2017</p>
+									<p>Powered by <strong>Sem Restrição</strong></p>
+							</div>
+					</div>
+			</div>
+			<ul class="pager" id="paginas">
+					
+			</ul>
+	</footer>
+</div>
 
 
 	<!-- código antigo -->
 
- <div class="container">
+ <!-- <div class="container">
 	<div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
 			<div class="list-group">
 					<c:forEach items="${restricao}" var="restricao">
@@ -176,7 +178,7 @@
 									<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
 									<c:set var="contains" value="true"/>
 								</c:if>
-							</c:forEach>	
+								</c:forEach>	
 							
 							<div class="checkbox">
 								<input name="restricao"  type="checkbox" value="${restricao.idRestricao}"
@@ -185,13 +187,13 @@
 									</c:if>
 									>${restricao.descricaoRestricao}</input>	
 							</div>			
-				</c:forEach>
+					</c:forEach>
 		</div>
-  </div><!--/span-->
- </div>
+  </div>
+ </div> -->
 	
 
-<nav class="navbar navbar-inverse">
+<!-- <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -222,42 +224,44 @@
         	<li><a href="/logout">Sair</a></li>
       	</ul>
       	
-    </div><!-- /.navbar-collapse -->
+    </div>
   </div>
   
-</nav>
+</nav> -->
 
 <div id="listaProduto">
-<div class="container">
-	<div class="container">	
-	  <div class="modal fade" id="myModal" role="dialog" >
-	  	<div class="modal-dialog"  >  
-	      <!-- Modal content-->
-		      <div class="modal-content" >
-		        <div class="modal-header" >
-		          <button type="button" class="close" onclick="limpaModal()" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Detalhes do Produto</h4>
-		        </div>
-		        <div class="modal-body" >
-		        <form method="post" id="form">			 
-		        	<div id="descricao"> </div>
-		        	<div id="imagem" > </div>
-		        	<input type="number" id="quantidade"/>
-		        	<div id="quantidadeDisponivel"></div>
-		        	<input type="hidden" id="quantidadeEstoque" name="quantidadeEstoque">
-		        	<input type="hidden" name="idProduto" id="idProduto">
-		       	</form>
-		        </div>
-		        <div class="modal-footer" >
-		       	  <a href="#" onclick="validaQuantidade(event)" class="btn btn-primary" data-dismiss="modal" > Adicionar no Carrinho </a>
-		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        </div>
-		      </div>    
-	      </div> 
-	  </div>
+	<div class="container">
+		<div class="container">	
+			<div class="modal fade" id="myModal" role="dialog" >
+				<div class="modal-dialog"  >  
+					<div class="modal-content" >
+						<div class="modal-header" >
+							<button type="button" class="close" onclick="limpaModal()" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Detalhes do Produto</h4>
+						</div>
+						<div class="modal-body" >
+							<form method="post" id="form">			 
+								<div id="descricao"> </div>
+								<div id="imagem" > </div>
+								<input type="number" id="quantidade"/>
+								<div id="quantidadeDisponivel"></div>
+								<input type="hidden" id="quantidadeEstoque" name="quantidadeEstoque">
+								<input type="hidden" name="idProduto" id="idProduto">
+							</form>
+						</div>
+						<div class="modal-footer" >
+							<a href="#" onclick="validaQuantidade(event)" class="btn btn-primary" data-dismiss="modal" > Adicionar no Carrinho </a>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>    
+				</div> 
+			</div>
+		</div>
 	</div>
+</div>
+
 		
-<div> ${mensagem}</div>
+<!-- <div> ${mensagem}</div>
 	<div class="row">
 			<c:forEach items="${listaProduto}" var="produto"  >
    		
@@ -291,11 +295,9 @@
  	 		</c:forEach>
 	</div>						
 </div>
-</div>	
+</div>	 -->
 		<!--<form onsubmit="buscaPagina(event)">-->
-		<ul class="pager" id="paginas">
-			 
-		</ul>
+
 		
 	
 </body>
