@@ -32,6 +32,9 @@ public class Cliente {
 	public int getRestricao(int i) {
 		return restricao[i];
 	}
+	public int[] getRestricao() {
+		return restricao;
+	}
 	public void setRestricao(int[] restricao) {
 		this.restricao = restricao;
 	}

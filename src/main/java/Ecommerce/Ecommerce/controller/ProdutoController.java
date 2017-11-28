@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import Ecommerce.Ecommerce.model.Cliente;
 import Ecommerce.Ecommerce.model.Imagem;
 import Ecommerce.Ecommerce.model.Produto;
 import Ecommerce.Ecommerce.model.Restricao;
@@ -47,6 +47,8 @@ public class ProdutoController {
 	public ModelAndView buscaProduto(Model modelo){
 		int valor = 0;
 		ModelAndView mv = new ModelAndView("/listaProdutos");
+		List<Restricao> restricao = repository.buscaRestricao();
+		mv.addObject("restricao", new ArrayList<Restricao>(restricao));
 		List<Produto> list = repository.buscaPaginas(valor);
 		mv.addObject("listaProduto", new ArrayList<Produto>(list));
 		return mv;
@@ -67,14 +69,14 @@ public class ProdutoController {
 	public String salvar(Produto produto, @RequestParam(name="codigo") int codigo , @RequestParam("foto") MultipartFile imagem) {
 		ModelAndView mv = new ModelAndView("manterProdutos");
 		if(!imagem.isEmpty()) {
-			String diretorio ="C:\\Users\\ch\\Pictures\\imagens\\";
+			String diretorio ="C:\\Users\\rodrigo\\Pictures\\imagens\\";
 			String nome = UUID.randomUUID().toString() + ".jpg";
 			Path caminho = Paths.get(diretorio + nome);
 			File file = new File(diretorio, nome);
 			file.canRead();
 			try {
 				Files.write(caminho, imagem.getBytes());
-				File thumbnailDirectory = new File("C:\\Users\\ch\\Pictures\\imagens\\");
+				File thumbnailDirectory = new File("C:\\Users\\rodrigo\\Pictures\\imagens\\");
 				File thumbnail = new File(thumbnailDirectory, nome);			
 				Thumbnails.of(file).size(500, 200).toFile(thumbnail);
 		}catch (IOException e) {
@@ -107,8 +109,8 @@ public class ProdutoController {
 	public ModelAndView editar(@PathVariable int id){
 		Produto produto = repository.buscaIdProduto(id);
 		ModelAndView mv = new ModelAndView("/manterProdutos");	
-		//List<Restricao> rest = repository.buscaRestricao();
-		//mv.addObject("restricao", new ArrayList<Restricao>(rest));
+		List<Restricao> rest = repository.buscaRestricao();
+		mv.addObject("restricao", new ArrayList<Restricao>(rest));
 		mv.addObject("produto", produto);
 		return mv;
 	}
@@ -123,5 +125,28 @@ public class ProdutoController {
 		}
 		
 	}
+	@GetMapping("/buscaRestricao")
+	public ModelAndView buscaRestricao(Cliente cliente, Model modelo){	
+		ModelAndView mv = new ModelAndView("/listaProdutos");
+		List<Produto> list = repository.buscaRestricaoProduto(cliente.getRestricao());
+		mv.addObject("listaProduto", new ArrayList<Produto>(list));
+		List<Restricao> restricao = repository.buscaRestricao();
+		mv.addObject("restricao", new ArrayList<Restricao>(restricao));
+		return mv;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 

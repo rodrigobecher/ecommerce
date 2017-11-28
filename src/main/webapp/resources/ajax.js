@@ -26,6 +26,22 @@ function buscaPagina(event){
 	})
 	
 }
+function buscaProdutorestricao(event){
+	var elemento = document.getElementsByName('restricao');
+	var a = [];
+	for(i=0;i<elemento.length;i++){
+		if(elemento[i].checked == true){
+			a[i] = elemento[i];
+			
+		}
+		else{
+			
+		}
+	}
+		
+}
+	
+
 function pegaProduto(id){
 	limpaModal()
 		$.ajax({

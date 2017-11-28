@@ -7,20 +7,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import org.apache.taglibs.standard.tag.common.core.ForEachSupport;
+import org.assertj.core.api.ObjectArrayAssert;
+import org.assertj.core.internal.ObjectArrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.session.SessionProperties.Jdbc;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
+
+import com.fasterxml.jackson.databind.ser.std.NumberSerializers.IntegerSerializer;
+import com.fasterxml.jackson.databind.ser.std.ObjectArraySerializer;
+
 import Ecommerce.Ecommerce.model.Imagem;
 import Ecommerce.Ecommerce.model.Produto;
 import Ecommerce.Ecommerce.model.Restricao;
+import ognl.ObjectArrayPool;
 
 
 
@@ -28,6 +43,11 @@ import Ecommerce.Ecommerce.model.Restricao;
 public class ProdutoRepository {
 	@Autowired
 	private JdbcTemplate jdbc;
+	
+	@Autowired
+	private NamedParameterJdbcTemplate getJdbcTemplate;
+	
+
 	
 	public void save(Produto produto) {
 		
@@ -229,6 +249,7 @@ public class ProdutoRepository {
 			produto.setQuantidade(rs.getInt("quantidade"));
 			produto.setIdProduto(rs.getInt("idProduto"));
 			produto.setComplemento(rs.getString("complemento"));
+			produto.setPaginas(quantidadeRegistros());
 			produto.setPrecoVenda(new BigDecimal(rs.getDouble("precoVenda")));
 			produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));
 			produto.setImagem(img);
@@ -260,5 +281,56 @@ public class ProdutoRepository {
 		jdbc.update("insert into carrinho (idProduto) values (?)",
 				new Object[] {idProduto});
 	}
-	
+	public List<Produto> buscaRestricaoProduto(int[] restricao) {
+		
+		StringBuilder builder = new StringBuilder();
+		for( int i = 0 ; i < restricao.length; i++ ) {
+		    builder.append("?,");
+		}
+		builder.deleteCharAt( builder.length() -1 ).toString();
+		
+		 int[] ids = restricao;
+
+		 MapSqlParameterSource parameters = new MapSqlParameterSource();
+		 for( int i = 0 ; i < restricao.length; i++ ) {
+			 parameters.addValue("ids", restricao[i]);
+			}
+		
+
+		 List<Produto> produto = getJdbcTemplate.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade, produto.precoVenda, imagem.idImagem, restricao.descricaoRestricao, imagem.descricao from imagem" + 
+					" inner join produto " + 
+					" on produto.idProduto = imagem.idProduto " + 
+					" inner join restricaoproduto " + 
+					" on produto.idProduto = restricaoproduto.idProduto " + 
+					" inner join restricao " + 
+					" on restricao.idRestricao = restricaoproduto.idRestricao " + 
+					" where restricaoproduto.idRestricao in (:ids) ", parameters, new ProdutoMapper());
+		 return produto;
+		
+		/*
+		HashMap<String, int[]> parametro = new HashMap<String, int[]>();
+		parametro.put("list", restricao);
+		List<Produto> result = jdbcParameters.query(sql, parametro, new ProdutoMapper());
+		return result;
+		 */
+			
+		   
+		    
+					
+		    /*
+		  
+		   
+		    
+		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento,  produto.precoVenda, imagem.idImagem, restricao.descricaoRestricao,  imagem.descricao from imagem" + 
+					" inner join produto " + 
+					" on produto.idProduto = imagem.idProduto " + 
+					" inner join restricaoproduto " + 
+					" on produto.idProduto = restricaoproduto.idProduto " + 
+					" inner join restricao " + 
+					" on restricao.idRestricao = restricaoproduto.idRestricao " + 
+					" where restricaoproduto.idRestricao in ('"+builder+"') " + 
+					"limit 0,5 ", new Object[]{restricao}, new int[]{java.sql.Types.ARRAY}, new ProdutoMapper());
+			*/
+							
+	}	
 }
