@@ -282,14 +282,10 @@ public class ProdutoRepository {
 				new Object[] {idProduto});
 	}
 	public List<Produto> buscaRestricaoProduto(int[] restricao) {
-		
-
 		 MapSqlParameterSource parameters = new MapSqlParameterSource();
 		 for( int i = 0 ; i < restricao.length; i++ ) {
 			 parameters.addValue("ids", restricao[i]);
 			}
-		
-
 		 List<Produto> produto = getJdbcTemplate.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade, produto.precoVenda, imagem.idImagem, restricao.descricaoRestricao, imagem.descricao from imagem" + 
 					" inner join produto " + 
 					" on produto.idProduto = imagem.idProduto " + 
@@ -298,10 +294,7 @@ public class ProdutoRepository {
 					" inner join restricao " + 
 					" on restricao.idRestricao = restricaoproduto.idRestricao " + 
 					" where restricaoproduto.idRestricao in (:ids) ", parameters, new ProdutoMapper());
-		 return produto;
-		
-		
-							
+		 return produto;			
 	}
 	public List<Produto> pesquisaNome(String valor) {
 		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
