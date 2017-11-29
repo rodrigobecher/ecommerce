@@ -40,8 +40,31 @@ function buscaProdutorestricao(event){
 	}
 		
 }
+function buscaProduto(){
+	var pesquisa = $("#produto").val();
+	if (isNaN(pesquisa) || pesquisa != "") {
+		if (pesquisa != null) {
+			
+		$.ajax({
+			url:'/produto/pesquisa',
+			data: "pesquisa="+pesquisa,
+			success: function(result){
+				$("#listaProduto").html(result);
+		},
+		error: function(result){
+			$("#mensagem").html(result.responseText);
+		}
+		})
+	}else{
+		alert("Digite alguma informação");
+		event.preventDefault();
+	}
 	
-
+}else{
+	alert("Digite uma letra ou palavra");
+	event.preventDefault();
+}	
+}
 function pegaProduto(id){
 	limpaModal()
 		$.ajax({
@@ -85,6 +108,21 @@ function buscaCep(){
 		}
 	});
 }
+function validaChecked() {
+	var elemento = document.getElementsByName('restricao');
+	var a = [];
+	for(i=0;i<elemento.length;i++){
+		if(elemento[i].checked == true){
+			a[i] = elemento[i];
+			
+		}	
+	}
+	if (a.length == 0){
+		alert("Escolha uma opcao");
+		event.preventDefault();
+	}
+}
+
 function validaQuantidade(event){
 	var quantidade = parseInt($("#quantidade").val());
 	var quantidadeEstoque = parseInt($("#quantidadeEstoque").val());

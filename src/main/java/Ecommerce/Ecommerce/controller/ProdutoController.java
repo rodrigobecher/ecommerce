@@ -134,6 +134,14 @@ public class ProdutoController {
 		mv.addObject("restricao", new ArrayList<Restricao>(restricao));
 		return mv;
 	}
+	
+	@GetMapping("/pesquisa")
+	public ModelAndView pesquisa(@RequestParam(name="pesquisa", required=false) String pesquisa,Model modelo){
+		ModelAndView mv = new ModelAndView("ajaxProduto");
+		List<Produto> list = repository.pesquisaNome(pesquisa);
+		mv.addObject("listaProduto", new ArrayList<Produto>(list));
+		return mv;
+	}
 
 	
 	

@@ -283,13 +283,6 @@ public class ProdutoRepository {
 	}
 	public List<Produto> buscaRestricaoProduto(int[] restricao) {
 		
-		StringBuilder builder = new StringBuilder();
-		for( int i = 0 ; i < restricao.length; i++ ) {
-		    builder.append("?,");
-		}
-		builder.deleteCharAt( builder.length() -1 ).toString();
-		
-		 int[] ids = restricao;
 
 		 MapSqlParameterSource parameters = new MapSqlParameterSource();
 		 for( int i = 0 ; i < restricao.length; i++ ) {
@@ -307,30 +300,40 @@ public class ProdutoRepository {
 					" where restricaoproduto.idRestricao in (:ids) ", parameters, new ProdutoMapper());
 		 return produto;
 		
-		/*
-		HashMap<String, int[]> parametro = new HashMap<String, int[]>();
-		parametro.put("list", restricao);
-		List<Produto> result = jdbcParameters.query(sql, parametro, new ProdutoMapper());
-		return result;
-		 */
-			
-		   
-		    
-					
-		    /*
-		  
-		   
-		    
-		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento,  produto.precoVenda, imagem.idImagem, restricao.descricaoRestricao,  imagem.descricao from imagem" + 
-					" inner join produto " + 
-					" on produto.idProduto = imagem.idProduto " + 
-					" inner join restricaoproduto " + 
-					" on produto.idProduto = restricaoproduto.idProduto " + 
-					" inner join restricao " + 
-					" on restricao.idRestricao = restricaoproduto.idRestricao " + 
-					" where restricaoproduto.idRestricao in ('"+builder+"') " + 
-					"limit 0,5 ", new Object[]{restricao}, new int[]{java.sql.Types.ARRAY}, new ProdutoMapper());
-			*/
+		
 							
+	}
+	public List<Produto> pesquisaNome(String valor) {
+		return jdbc.query("select produto.idProduto, produto.produtoDescricao, produto.complemento, produto.quantidade,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem" + 
+				" inner join produto " + 
+				" on produto.idProduto = imagem.idProduto " +
+				" where produto.produtoDescricao like ?" +
+				" limit 0,5 ", new Object[] {"%" + valor + "%"}, new ResultSetExtractor<List<Produto>>(){
+			
+			@Override
+			public List<Produto> extractData(ResultSet rs) throws SQLException,  
+            DataAccessException {  
+				List<Produto> list = new ArrayList<Produto>();
+				while(rs.next()) {
+					Imagem img = new Imagem();
+					Produto produto = new Produto();
+					img.setIdImagem(rs.getInt("idImagem"));
+					img.setDescricao(rs.getString("descricao"));
+					produto.setDescricao(rs.getString("produtoDescricao"));
+					produto.setQuantidade(rs.getInt("quantidade"));
+					produto.setIdProduto(rs.getInt("idProduto"));
+					produto.setComplemento(rs.getString("complemento"));
+					produto.setPrecoVenda(new BigDecimal(rs.getDouble("precoVenda")));
+					produto.setPaginas(quantidadeRegistros());
+					produto.setRestricoes(buscaRestricaoProduto(produto.getIdProduto()));	
+					produto.setImagem(img); 
+		        list.add(produto);  
+					
+
+				}
+				 return list; 
+			}
+		});
+		
 	}	
 }

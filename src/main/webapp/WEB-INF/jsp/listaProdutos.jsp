@@ -83,9 +83,10 @@
 				</security:authorize>
 				<li><a class="nav-link" href="/logout">Sair</a></li>
 				<li id="pesquisa">
-					<form class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2" type="search" placeholder="Pesquisa" aria-label="Pesquisa">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="btnpesquisa" >Pesquisa</button>
+					<form  class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search" id="produto" placeholder="Pesquisa" aria-label="Pesquisa">
+						<a href="#" class="btn btn-outline-success my-2 my-sm-0" onclick="buscaProduto()">Pesquisa</a>
+						
 					</form>
 				</li>
 			</ul>
@@ -96,7 +97,7 @@
 	<div class="card">
 		<div class="card-body">
 				<div class="list-group">
-				<form id="teste" action="/produto/buscaRestricao">
+				<form id="teste" onsubmit="validaChecked()" action="/produto/buscaRestricao">
 					<c:forEach items="${restricao}" var="restricao">
 						<c:set var="contains" value="false" />
 							<c:forEach items="${cliente.restricoes}" var="restricaoProduto">										
