@@ -66,7 +66,7 @@ public class ProdutoRepository {
 				
 		}
 	public void excluirImagem(String descricao) throws IOException {
-		File f = new File("C:/users/Rodrigo/pictures/imagens/"+ descricao);
+		File f = new File("C:/users/ch/pictures/imagens/"+ descricao);
 		f.delete();
 			
 	}

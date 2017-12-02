@@ -1,0 +1,128 @@
+
+@charset "ISO-8859-1";
+th.alinhamento{
+position: relative;
+float: left;
+border: 2px solid  blue;
+margin: 2px 3px 5px 3px;
+}
+#login {
+  padding:.5rem .75rem;
+}
+
+.align{
+
+	text-align: center;
+}
+
+.card{
+  margin-top: 0px;
+}
+
+.modal:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.modal > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 15px 20px;
+	background: #fff;
+}
+
+.form-wrap {
+    width: 30%;
+    margin: 0 auto;
+}
+h1 {
+    color: #89bb49;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 25px;
+}
+.checkbox {
+    margin-bottom: 20px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.checkbox.show:before {
+    content: '\e013';
+    color: #1fa67b;
+    font-size: 17px;
+    margin: 1px 0 0 3px;
+    position: absolute;
+    pointer-events: none;
+    font-family: 'Glyphicons Halflings';
+}
+.checkbox .character-checkbox {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    display: inline-block;
+}
+ .checkbox .label {
+    color: #6d6d6d;
+    font-size: 13px;
+    font-weight: normal;
+}
+.btn.btn-custom {
+   font-size: 14px;
+	margin-bottom: 20px;
+}
+.forget {
+    font-size: 13px;
+	text-align: center;
+	display: block;
+}
+
+.col-xs-12{
+  margin-left: 45%;
+ }
+
+ .form-control{
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-width:530px;
+ }
+
+ .btn-primary{
+    background-color:#89bb49; 
+    color: floralwhite;
+    border-color:#89bb49;
+  }
+  .btn-primary :hover{
+    background-color: floralwhite;
+    color: #89bb49;
+    border-color:#89bb49;
+  }
+.btn-default{
+    background-color: floralwhite;
+    color: #89bb49;
+    margin-bottom: 2px; 
+  }
+
+  #complemento{
+      height: 100px;
+  }

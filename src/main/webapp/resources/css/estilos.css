@@ -258,6 +258,15 @@ margin: 2px 3px 5px 3px;
   margin-right: 3%;
 }
 
+#produto{
+  margin-top: 2px;
+  /* margin-left: 3% */
+}
+
+#btnpesquisa{
+  background-color: #f0f0ed
+}
+
 #teste {
 	/* background-image: url(http://www.ezyhealth.com/magazine/wp-content/uploads/2015/03/iStock_000046272610_Large.jpg); */
    /* background-color: #bfebb6 */

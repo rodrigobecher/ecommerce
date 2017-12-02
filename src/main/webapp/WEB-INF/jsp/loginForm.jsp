@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/estilos.css"/>
-<link rel="stylesheet" href="resources/css/bootstrap.css" />
-<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
+<!-- <link rel="stylesheet" href="resources/css/bootstrap.css" />
+<link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" /> -->
 <title>Login</title>
 </head>
 <body>
@@ -43,36 +43,33 @@
 </div>
 <div>
     <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
-		<img src="resources/imagens/logo.png" href="#" alt="Sem restrição">
+		<img src="/resources/imagens/logo.png" href="#" alt="Sem restrição">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link" href="#">Início <span class="sr-only">(current)</span></a>
+                	<a class="nav-link" href="/produto/itens">Início <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/produto">Produtos</a>
+                	<a class="nav-link" href="/produto">Produtos</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Receitas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/carrinho">Carrinho</a>
-                    
+                	<a class="nav-link" href="/carrinho">Carrinho</a>    
                 </li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               	 	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Conta
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/cliente">Criar</a>
-                    <a class="dropdown-item" href="/login">Entrar</a>
-                    <!-- <a class="dropdown-item" href="#">Carrinho</a> -->
-                </div>
-                </li>
-            </ul>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="/cliente">Criar</a>
+						<a class="dropdown-item" href="/produto/itens">Entrar</a>
+						
+					</div>
+				</li>
+				<li><a class="nav-link" href="/logout">Sair</a></li>
+			</ul>
 	    </div>
 	</nav>
 </div>

@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/resources/css/estilos.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/css/produtos.css"/>
 <script src="/resources/ajax.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -53,19 +54,16 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                	<a class="nav-link" href="#">Início <span class="sr-only">(current)</span></a>
+                	<a class="nav-link" href="/produto/itens">Início <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                 	<a class="nav-link" href="/produto">Produtos</a>
                 </li>
                 <li class="nav-item">
-                	<a class="nav-link" href="#">Receitas</a>
-                </li>
-                <li class="nav-item">
                 	<a class="nav-link" href="/carrinho">Carrinho</a>    
                 </li>
                 <li class="nav-item dropdown">
-               	 	<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               	 	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Conta
                 </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -85,7 +83,7 @@
 				<li id="pesquisa">
 					<form  class="form-inline my-2 my-lg-0">
 						<input class="form-control mr-sm-2" type="search" id="produto" placeholder="Pesquisa" aria-label="Pesquisa">
-						<a href="#" class="btn btn-outline-success my-2 my-sm-0" onclick="buscaProduto()">Pesquisa</a>
+						<a href="#" class="btn btn-outline-success my-2 my-sm-0" id="btnpesquisa" onclick="buscaProduto()">Pesquisa</a>
 						
 					</form>
 				</li>
@@ -126,23 +124,20 @@
 		<div> ${mensagem}</div>
 <div id="listaProduto">
 <div class="box">
-		<div class="card">
+		<div class="card lista">
 			<div class="card-body" id="exibicaoprodutos" >
 				<c:forEach items="${listaProduto}" var="produto"  >
-					<div class="card" style="width: 15rem;" >
+					<div class="card" style="width: 11rem;" >
 						<a href="#" onclick="pegaProduto(${produto.imagem.idImagem})" data-toggle="modal" data-target="#myModal" title="Detalhes">
 							<c:if test="${produto.imagem.descricao != null }">
-									<img class="card-img-top" src="/imagens/${produto.imagem.descricao }" alt="imagem do Produto">					
+									<img class="card-img-top" src="imagens/${produto.imagem.descricao }" alt="imagem do Produto">					
 							</c:if>
 						</a>
 						<div class="card-body" id="cardbodyproduto">
 							<input type="hidden" id="pagina" value="${produto.paginas}">
 							<h4 class="card-title"> ${produto.descricao}</h4>
 							<p class="card-text"> ${produto.complemento}</p>
-							<h2><span class="badge badge-success">
-								<fmt:setLocale value="pt_br"/>
-       								  <fmt:formatNumber value = "${produto.precoVenda }" type = "currency"/>
-									</span></h2>
+							<h2><span class="badge badge-success">R$ ${produto.precoVenda }</span></h2>
 							<h4>Restrições</h4>
 							<ul> 
 							<c:forEach items="${produto.restricoes}" var="produtoRest" >
@@ -151,15 +146,15 @@
 							</ul>
 							<p class="card-text">Quantidade Estoque: ${produto.quantidade }</p>
 							<security:authorize access="hasRole('ROLE_ADMIN')">
-								<p><a href="/produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
-								<p><a href="/produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
+								<p><a href="produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
+								<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
 							</security:authorize>
 						</div>
 					</div>
 				</c:forEach>		
 				</div>
 		</div>
-</div>		
+</div>	>		
 </div>
 <div>
 
@@ -191,19 +186,25 @@
 							<h4 class="modal-title">Detalhes do Produto</h4>
 						</div>
 						<div class="modal-body" >
-							<form method="post" id="form">	
-							<div>Descricao:</div>		 
+							<form method="post" id="form">			 
 								<div id="descricao"> </div>
 								<div id="imagem" > </div>
-								<div>Quantidade  <input style="width: 25px"type="number" id="quantidade"/> </div>
-							<div>Quantidade Disponível:</div>  <div id="quantidadeDisponivel"></div>
+								<div class="card produto">
+									Quantidade:
+									<div class="card-body">
+										<input type="number" id="quantidade"/>
+										</br>
+										Disponível:
+										<div id="quantidadeDisponivel"></div>
+									</div>
+								</div>
 								<input type="hidden" id="quantidadeEstoque" name="quantidadeEstoque">
 								<input type="hidden" name="idProduto" id="idProduto">
 							</form>
 						</div>
 						<div class="modal-footer" >
-							<a href="#" onclick="validaQuantidade(event)" class="btn btn-primary" data-dismiss="modal" > Adicionar no Carrinho </a>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<a href="#" onclick="validaQuantidade(event)" class="btn btn-custom btn-lg btn-block" data-dismiss="modal" > Adicionar no Carrinho </a>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 						</div>
 					</div>    
 				</div> 
