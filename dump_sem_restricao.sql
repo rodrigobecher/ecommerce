@@ -13,19 +13,6 @@ create table permissoes(
     primary key(idPermissoes),
     foreign key (login) references usuario(login) on delete cascade on update cascade
 );
-
-create table estado(
-	idEstado int not null auto_increment,
-    descricaoEstado varchar(70) not null,
-    primary key(idEstado)
-);
-create table cidade(
-	idCidade int not null auto_increment,
-    descricaoCidade varchar(70) not null,
-    idEstado int not null,
-	foreign key (idEstado) references estado(idEstado) on delete cascade on update cascade,
-    primary key(idCidade)
-);
 create table cliente(
 	idCliente int not null auto_increment,
     nome varchar(50) not null,
@@ -81,12 +68,6 @@ create table imagem(
     primary key(idImagem)
 );
 
-/* create table formaPagamento(
-	idFormaPagamento int not null auto_increment,
-    descricaoPagamento varchar(60) not null,
-    primary key(idFormaPagamento)
-); */
-
 
 create table pedido(
 	idPedido int not null auto_increment,
@@ -101,10 +82,12 @@ create table itemPedido(
     idPedido int not null,
     idProduto int not null,
 	quantidade int not null,
+    dataPedido Date,
     foreign key (idPedido) references pedido(idPedido) on delete cascade on update cascade,
     foreign key (idProduto) references produto(idProduto) on delete cascade on update cascade,
     primary key(idItemPedido)
 );
+
 
 use ecommerce
 select login, senha from usuario where login = 'rodrigo'
@@ -112,32 +95,44 @@ select * from cliente
 truncate cliente;
 truncate usuario;
 insert into usuario (login, senha) values ('rodrigo', '$2a$10$g8x41tFLZTenQeGriW7bbu2yHLWCGQ94nKqDBuZyIIfJKbOJ2fXQK');
-insert into permissoes(permissoes, login) values ('ROLE_ADMIN','aline');
+insert into permissoes(permissoes, login) values ('ROLE_ADMIN','rodrigo');
 truncate permissoes
 
+select * from usuario
 select permissoes, login from permissoes where login = 'rodrigo'
-
-insert into restricao(descricaoRestricao) values ('Sem Glutem');
 
 insert into restricao(descricaoRestricao) values ('Sem Glutem');
 insert into restricao(descricaoRestricao) values ('Sem Lactose');
 insert into restricao(descricaoRestricao) values ('Sem Frutose');
-
+insert into restricao(descricaoRestricao) values ('Sem Sacarose');
 
 SELECT SQL_CALC_FOUND_ROWS * FROM pessoa LIMIT 0,10
 
+select * from pedido
+
+select * from itempedido
 
 select idRestricao, descricaoRestricao from restricao
 / insert into restricaoProduto (idRestricao, idProduto) values (3, 1)
 SELECT SQL_CALC_FOUND_ROWS * FROM pessoa LIMIT 0,10
-select produto.idProduto, produto.produtoDescricao, produto.complemento,  produto.precoVenda, imagem.idImagem,  imagem.descricao from imagem
-inner join produto
-on produto.idProduto = imagem.idProduto
-where produto.idProduto = 43
-limit 0,3;
-select found_rows()
-select * from produto
 
+select produto.idProduto, produto.produtoDescricao, sum(itempedido.quantidade) as quantidade, itempedido.dataPedido  from itempedido
+inner join produto
+on produto.idProduto = itempedido.idProduto
+group by (itempedido.idProduto)
+HAVING COUNT(itempedido.quantidade)
+order by quantidade desc
+limit 3
+
+
+
+select produto.idProduto, produto.produtoDescricao, itempedido.quantidade, itempedido.dataPedido  from itempedido
+inner join produto
+on produto.idProduto = itempedido.idProduto
+
+select found_rows()
+select * from restricao
+use ecommerce
 SELECT SQL_CALC_FOUND_ROWS * FROM produto
    LIMIT 3;
 SELECT FOUND_ROWS();

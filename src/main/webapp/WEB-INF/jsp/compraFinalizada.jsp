@@ -56,7 +56,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 						<ul class="navbar-nav">
 								<li class="nav-item">
-									<a class="nav-link" href="/produto/itens">Início <span class="sr-only">(current)</span></a>
+									<a class="nav-link" href="/produto">Início <span class="sr-only">(current)</span></a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="/produto">Produtos</a>
@@ -74,6 +74,13 @@
 						
 					</div>
 				</li>
+				<security:authorize access="hasRole('ROLE_ADMIN')">
+								<li><a class="nav-link" href="/administrador">Área administrativa</a></li>
+				</security:authorize>
+				<security:authorize access="isAuthenticated()" var="autenticado">
+						<security:authentication property="principal" var="usuario"/>
+						<li><a class="nav-link" href="#">Olá ${usuario.username }</a></li>
+				</security:authorize>
 				<li><a class="nav-link" href="/logout">Sair</a></li>
 			</ul>
 			</div>

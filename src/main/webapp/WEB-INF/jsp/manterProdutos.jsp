@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,13 +24,13 @@
 		</ol>
 		<div class="carousel-inner">
 				<div class="carousel-item active">
-						<img class="d-block w-100" src="resources/imagens/Topo.jpg" alt="First slide">
+						<img class="d-block w-100" src="/resources/imagens/Topo.jpg" alt="First slide">
 				</div>
 				<div class="carousel-item">
-						<img class="d-block w-100" src="resources/imagens/paozinhos.jpg" alt="Second slide">
+						<img class="d-block w-100" src="/resources/imagens/paozinhos.jpg" alt="Second slide">
 				</div>
 				<div class="carousel-item">
-						<img class="d-block w-100" src="resources/imagens/bolo.jpg" alt="Third slide">
+						<img class="d-block w-100" src="/resources/imagens/bolo.jpg" alt="Third slide">
 				</div>
 		</div>
 		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -50,7 +51,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 						<ul class="navbar-nav">
 								<li class="nav-item">
-									<a class="nav-link" href="/produto/itens">Início <span class="sr-only">(current)</span></a>
+									<a class="nav-link" href="/produto">Início <span class="sr-only">(current)</span></a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="/produto">Produtos</a>
@@ -68,7 +69,16 @@
 						
 					</div>
 				</li>
+				<security:authorize access="hasRole('ROLE_ADMIN')">
+								<li><a class="nav-link" href="/administrador"></a></li>
+				</security:authorize>
+				<security:authorize access="isAuthenticated()" var="autenticado">
+						<security:authentication property="principal" var="usuario"/>
+						<li><a class="nav-link" href="#">Olá ${usuario.username }</a></li>
+				</security:authorize>
+				<security:authorize access="isAuthenticated()" var="autenticado">
 				<li><a class="nav-link" href="/logout">Sair</a></li>
+				</security:authorize>
 			</ul>
 			</div>
 	</nav>

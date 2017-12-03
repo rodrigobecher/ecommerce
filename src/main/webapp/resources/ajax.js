@@ -26,6 +26,8 @@ function buscaPagina(event){
 	})
 	
 }
+
+
 function buscaProdutorestricao(event){
 	var elemento = document.getElementsByName('restricao');
 	var a = [];

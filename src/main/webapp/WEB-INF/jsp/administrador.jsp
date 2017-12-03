@@ -11,10 +11,14 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/estilos.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/css/clientes.css"/>
 <script src="/resources/ajax.js"></script>
+<script src="/resources/grafico.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-<title>Cadastro Cliente</title>
+<title>Administrador</title>
 </head>
 <body>
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -70,97 +74,29 @@ pageEncoding="UTF-8"%>
 				
 			</div>
 		</li>
-		<li><a class="nav-link" href="/logout">Sair</a></li>
-	</ul>
+		<security:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a class="nav-link" href="/produto/cadastro">Cadastro de Produtos</a></li>
+				</security:authorize>
+				<security:authorize access="hasRole('ROLE_ADMIN')">
+						<li><a class="nav-link" href="##" onclick="grafico(event)">Grafico Venda</a></li>
+				</security:authorize>
+				
+				<security:authorize access="isAuthenticated()" var="autenticado">
+						<security:authentication property="principal" var="usuario"/>
+						<li><a class="nav-link" href="#">Olá ${usuario.username }</a></li>
+				</security:authorize>
+		<security:authorize access="isAuthenticated()" var="autenticado">
+				<li><a class="nav-link" href="/logout">Sair</a></li>
+				</security:authorize>	</ul>
 	</div>
 </nav>
 </div>
 
-<form action="/cliente"  method="post">
-<div class="card">
-	<div class="card-body">
-			<div class="form-group">
-					<label for="nome">Nome</label>
-					<input type="text"  name="nome" id="nome" class="form-control" required autofocus>
-				</div>
-				<div class="form-group">
-					<label for="sobrenome">Sobrenome</label>
-					<input type="text" name="sobreNome" id="sobreNome" class="form-control" required>
-				</div>
-				<div class="form-group">			
-						<c:forEach items="${restricao}" var="restricao">
-							<c:set var="contains" value="false" />
-							<c:forEach items="${cliente.restricoes}" var="restricaoProduto">
-								<c:if test="${restricao.idRestricao eq restricaoProduto.idRestricao}">
-									<c:set var="contains" value="true"/>
-								</c:if>
-							</c:forEach>	
-							
-							<div class="checkbox">
-								<input name="restricao"  type="checkbox" value="${restricao.idRestricao}"
-									<c:if test="${contains eq true}">
-										checked
-									</c:if>
-								>${restricao.descricaoRestricao}</input>	
-							</div>			
-						</c:forEach>
-				</div>
-				<div class="form-group">
-					<label for="telefone">Telefone</label>
-					<input type="tel" name="telefone" id="telefone" class="form-control" required>
-				</div>
-				<div class="form-group">
-					<label for="cpf">CPF</label>
-					<input type="text" name="cpf"  id="cpf" class="form-control" required>
-				</div>
-				<div class="form-group">
-					<label for="cep">CEP</label>
-					<input type="text" name="cep" onblur="buscaCep()" id ="cep" class="form-control"/> 
-				</div>
-				
-					<table class="table-bordered">
-						<tr>
-							<th> Cidade</th>
-							<th> Estado</th>
-							<th> Logradouro</th>
-						</tr>	
-						<tr>
-							<td>
-								<div class="form-group">
-									<input type="text" readonly="true" name="cidade" id ="cidade" class="form-control"/> 	
-								</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<input type="text" readonly="true" name="estado" id ="estado" class="form-control"/> 
-								</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<input type="text" readonly="true" name="logradouro" id ="logradouro" class="form-control"/> 
-								</div>
-							</td>			
-						</tr>					 
-						</table>
-			
-					<div class="form-group">
-					<label for="numero">Numero da casa</label>
-					<input type="text" name="numero" id ="numero" class="form-control"/> 
-				</div>
-				<div class="form-group">
-					<label for="login">Login</label>
-					<input type="text" name="login" id ="login" class="form-control"/> 
-				</div>
-				<div class="form-group">
-					<label for="senha">senha</label>
-					<input type="password" name="senha" id="senha" class="form-control"/>	
-				 </div>
-				<div class="form-group">	
-					<button type="submit" class="btn btn-custom">Salvar</button>
-				</div>
-	</div>
-</div>
-</form>
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+	
+	<script src="/resources/grafico.js"></script>
+
+
 <footer id="footer">
 		<div class="container">
 				<div class="row">

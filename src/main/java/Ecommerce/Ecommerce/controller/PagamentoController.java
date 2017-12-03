@@ -56,18 +56,23 @@ public class PagamentoController {
 	private final String email = "rodrigofbecher@gmail.com";
 	private final String token = "E4C362D8E2C04366B1335CE3F4741F28";
 	
-	@GetMapping
-	public ModelAndView pago(RedirectAttributes model) {
+	@GetMapping()
+	public ModelAndView pago(RedirectAttributes model,HttpSession session, HttpServletRequest request) {
 		ModelAndView mv= new ModelAndView("/compraFinalizada");
+		BigDecimal totalPedido = carrinho.getTotal();
+		Collection<CarrinhoItem> pedido = carrinho.getItens();
+		String usuario = request.getUserPrincipal().getName();
+		Cliente cli = clienteRepository.buscaCliente(usuario);	
+		repository.inserirItemPedido(pedido, totalPedido, cli.getIdCliente());	
+		session.invalidate();
 		return mv;
 	}
 	
 	@RequestMapping(value = "/finalizar", method = RequestMethod.GET)
 	@ResponseBody
-	public void finalizar(RedirectAttributes model, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws PagSeguroServiceException, IOException {
+	public void finalizar(RedirectAttributes model,  HttpServletRequest request, HttpServletResponse response) throws PagSeguroServiceException, IOException {
 		ModelAndView mv = new ModelAndView();
 		String usuario = request.getUserPrincipal().getName();
-		BigDecimal totalPedido = carrinho.getTotal();
 		Collection<CarrinhoItem> pedido = carrinho.getItens();
 		Cliente cli = clienteRepository.buscaCliente(usuario);
 		try {
@@ -81,7 +86,7 @@ public class PagamentoController {
 		}
 		req.setNotificationURL("localhost:8080/pagamento/notificacao");
 		req.setRedirectURL("localhost:8080/pagamento");
-		session.invalidate();
+		
 		
 		response.sendRedirect(req.register(getCredencial()));
 		
@@ -91,7 +96,7 @@ public class PagamentoController {
 			response.sendRedirect("/carrinho");
 			
 		}	
-		repository.inserirItemPedido(pedido, totalPedido, cli.getIdCliente());	
+		
 	}
 	
 	private Credentials getCredencial() throws PagSeguroServiceException {

@@ -73,13 +73,15 @@
 					</div>
 				</li>
 				<security:authorize access="hasRole('ROLE_ADMIN')">
-						<li><a class="nav-link" href="/produto/cadastro">Cadastro de Produtos</a></li>
+								<li><a class="nav-link" href="/administrador">Área administrativa</a></li>
 				</security:authorize>
 				<security:authorize access="isAuthenticated()" var="autenticado">
 						<security:authentication property="principal" var="usuario"/>
 						<li><a class="nav-link" href="#">Olá ${usuario.username }</a></li>
 				</security:authorize>
+				<security:authorize access="isAuthenticated()" var="autenticado">
 				<li><a class="nav-link" href="/logout">Sair</a></li>
+				</security:authorize>
 				<li id="pesquisa">
 					<form  class="form-inline my-2 my-lg-0">
 						<input class="form-control mr-sm-2" type="search" id="produto" placeholder="Pesquisa" aria-label="Pesquisa">
@@ -137,7 +139,10 @@
 							<input type="hidden" id="pagina" value="${produto.paginas}">
 							<h4 class="card-title"> ${produto.descricao}</h4>
 							<p class="card-text"> ${produto.complemento}</p>
-							<h2><span class="badge badge-success">R$ ${produto.precoVenda }</span></h2>
+							<h2><span class="badge badge-success">
+								<fmt:setLocale value="pt_br"/>
+       								  <fmt:formatNumber value = "${produto.precoVenda }" type = "currency"/>
+									</span></h2>
 							<h4>Restrições</h4>
 							<ul> 
 							<c:forEach items="${produto.restricoes}" var="produtoRest" >
@@ -154,7 +159,7 @@
 				</c:forEach>		
 				</div>
 		</div>
-</div>	>		
+</div>		
 </div>
 <div>
 

@@ -26,10 +26,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/produto/cadastro").hasRole("ADMIN")	
-		.antMatchers("pagamento/finalizar").hasRole("CLIENTE")
+		.antMatchers("/administrador").hasRole("ADMIN")
+		.antMatchers("pagamento/finalizar").hasAnyRole("CLIENTE", "ADMIN")
 		.antMatchers("/carrinho/carrinhoLogin").hasAnyRole("CLIENTE")
 		.antMatchers("/produto/buscaRestricao/**").permitAll()
 		.antMatchers("/produto/pesquisa/**").permitAll()
+		.antMatchers("/administrador/grafico/**").permitAll()
 		.antMatchers("/pagamento").permitAll()
 		.antMatchers("/produto").permitAll()
 		.antMatchers("/produto/pagina").permitAll()
