@@ -114,7 +114,7 @@
 																 <fmt:formatNumber value = "${item.produto.precoVenda}" type = "currency"/>
 													 </td>
 												<td class="quantity-input-cell">
-												<input type="number" min="0" style="width: 25px" readonly="readonly" id="quantidade" name="quantidade" value="${carrinhoCompras.getQuantidade(item) }"/></td>
+												<input type="number" min="0" style="width: 35px" readonly="readonly" id="quantidade" name="quantidade" value="${carrinhoCompras.getQuantidade(item) }"/></td>
 												<td class="numeric-cell">
 												<fmt:setLocale value="pt_br"/>
 																 <fmt:formatNumber value = "${carrinhoCompras.getTotal(item)}" type = "currency"/>

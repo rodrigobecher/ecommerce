@@ -2,12 +2,12 @@ function paginacao(){
 	var paginas = parseInt($("#pagina").val());
 	var pagina = 1;
 	var valores = 0;
-	$('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
+	$('#paginas').append('<li class="lista"><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
 	for (i = 1; i < paginas; i++) {
 	    if (i % 5==0){
 	    	pagina = pagina +1;
 	    	valores = valores +5;
-	    	 $('#paginas').append('<li><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
+	    	 $('#paginas').append('<li class="lista"><button type="submit" onclick="buscaPagina(event)" class="btn btn-default" value='+valores+' > Pagina('+ pagina +')</button></li>');
 	    	 
 	    }
 	}

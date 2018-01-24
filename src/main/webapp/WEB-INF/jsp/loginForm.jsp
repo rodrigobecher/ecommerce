@@ -85,7 +85,7 @@
                             <form action="/login" method="post" id="login-form" autocomplete="off">
                                 <div class="form-group">
                                     <label for="username" class="sr-only">Usuario</label>
-                                    <input type="text" name="username" id="username" class="form-control" placeholder="Usuario">
+                                    <input  type="text" name="username" id="username" class="form-control" placeholder="Usuario">
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="sr-only">Password</label>

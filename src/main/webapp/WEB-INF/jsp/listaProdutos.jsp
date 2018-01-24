@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/estilos.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/css/produtos.css"/>
 <script src="/resources/ajax.js"></script>
+<script src="/resources/grafico.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
@@ -73,7 +74,16 @@
 					</div>
 				</li>
 				<security:authorize access="hasRole('ROLE_ADMIN')">
-								<li><a class="nav-link" href="/administrador">Área administrativa</a></li>
+							<li class="nav-item dropdown">
+               	 	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Área administrativa
+                </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="/administrador">Area do administrador</a>
+						<a class="dropdown-item" href="/produto/cadastro">Cadastro Produto</a>
+						
+					</div>
+				</li>	
 				</security:authorize>
 				<security:authorize access="isAuthenticated()" var="autenticado">
 						<security:authentication property="principal" var="usuario"/>
@@ -151,8 +161,8 @@
 							</ul>
 							<p class="card-text">Quantidade Estoque: ${produto.quantidade }</p>
 							<security:authorize access="hasRole('ROLE_ADMIN')">
-								<p><a href="produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
-								<p><a href="produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
+								<p><a href="/produto/${produto.idProduto}" class="btn btn-sm">Alterar</a></p>
+								<p><a href="/produto/excluir/${produto.imagem.idImagem}/${produto.idProduto}/${produto.imagem.descricao}" onclick="return confirm('Exluir?')" class="btn btn-sm" >Excluir</a></p>
 							</security:authorize>
 						</div>
 					</div>

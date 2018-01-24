@@ -75,7 +75,7 @@ pageEncoding="UTF-8"%>
 			</div>
 		</li>
 		<security:authorize access="hasRole('ROLE_ADMIN')">
-						<li><a class="nav-link" href="/produto/cadastro">Cadastro de Produtos</a></li>
+					
 				</security:authorize>
 				<security:authorize access="hasRole('ROLE_ADMIN')">
 						<li><a class="nav-link" href="##" onclick="grafico(event)">Grafico Venda</a></li>

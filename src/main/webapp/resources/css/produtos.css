@@ -41,7 +41,21 @@
   .card.lista{
     margin-top: 0px;
   }
-  
+   .pager{
+    display: inline-block;
+    /* width: 200px;
+    height: 100px; */
+    margin: 1em;
+    margin-top: 0px;
+  }
+  li {
+    float: left;
+    margin: 2px;
+}
+
+.lista{
+	list-style-type: none;
+}
   #cardproduto{
     display: inline;
   }

@@ -4,42 +4,12 @@
         <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
         <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-	<div id="listaProduto">
-	<div class="container">
-		<div class="container">	
-			<div class="modal fade" id="myModal" role="dialog" >
-				<div class="modal-dialog"  >  
-					<div class="modal-content" >
-						<div class="modal-header" >
-							<button type="button" class="close" onclick="limpaModal()" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Detalhes do Produto</h4>
-						</div>
-						<div class="modal-body" >
-							<form method="post" id="form">	
-							<div>Descricao:</div>		 
-								<div id="descricao"> </div>
-								<div id="imagem" > </div>
-								<div>Quantidade  <input style="width: 25px"type="number" id="quantidade"/> </div>
-							<div>Quantidade Disponível:</div>  <div id="quantidadeDisponivel"></div>
-								<input type="hidden" id="quantidadeEstoque" name="quantidadeEstoque">
-								<input type="hidden" name="idProduto" id="idProduto">
-							</form>
-						</div>
-						<div class="modal-footer" >
-							<a href="#" onclick="validaQuantidade(event)" class="btn btn-primary" data-dismiss="modal" > Adicionar no Carrinho </a>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						</div>
-					</div>    
-				</div> 
-			</div>
-		</div>
-	</div>
-</div>
+<div id="listaProduto">
 <div class="box">
-		<div class="card">
+		<div class="card lista">
 			<div class="card-body" id="exibicaoprodutos" >
 				<c:forEach items="${listaProduto}" var="produto"  >
-					<div class="card" style="width: 15rem;" >
+					<div class="card" style="width: 11rem;" >
 						<a href="#" onclick="pegaProduto(${produto.imagem.idImagem})" data-toggle="modal" data-target="#myModal" title="Detalhes">
 							<c:if test="${produto.imagem.descricao != null }">
 									<img class="card-img-top" src="imagens/${produto.imagem.descricao }" alt="imagem do Produto">					
@@ -68,5 +38,6 @@
 					</div>
 				</c:forEach>		
 				</div>
-		</div>					
+		</div>
+</div>		
 </div>
